@@ -23,11 +23,14 @@ def Keyboard():
 
 @app.route('/message', methods=['Post'])
 def Message():
-	dataReceive = request.get_json()
-	content = dataReceive['content']
+	
 	# 구로구 구로3동
 	regionCode = '09530540'
 	weather, temp = get_weather(regionCode)
+	
+	dataReceive = request.get_json()
+	content = dataReceive['content']
+	
 	if content == u"시작하기":
 		dataSend = {
 			"message" : {
