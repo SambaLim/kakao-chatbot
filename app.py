@@ -27,12 +27,15 @@ def Message():
 
 	dataReceive = request.get_json()
 	content = dataReceive['content']
+	
+	# 첫 인삿말 만들기
 	today = str(nowdate)
+	hello = today + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n점심 음식점, 메뉴 걱정말고 저에게 맡겨주세요!" 
 	
 	if content == u"시작하기":
 		dataSend = {
 			"message" : {
-				"text" : today
+				"text" : hello
 			}
 		}
 	return jsonify(dataSend)
