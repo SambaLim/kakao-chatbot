@@ -32,8 +32,7 @@ def Message():
 	if content == u"시작하기":
 		dataSend = {
 			"message" : {
-				"text" : today,
-				"text" : "안녕하세요."
+				"text" : today
 			}
 		}
 	return jsonify(dataSend)
