@@ -1,6 +1,8 @@
 
 from flask import Flask, request, jsonify
 
+import time
+
 app = Flask(__name__)
 
 '''
@@ -8,7 +10,9 @@ app = Flask(__name__)
 def hello_world():
 	return 'Hello World!'
 '''
-	
+
+nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
+
 @app.route('/keyboard')
 def Keyboard():
 	
@@ -23,10 +27,12 @@ def Message():
 
 	dataReceive = request.get_json()
 	content = dataReceive['content']
+	today = str(nowdate)
 	
 	if content == u"시작하기":
 		dataSend = {
 			"message" : {
+				"text" : today,
 				"text" : "안녕하세요."
 			}
 		}
