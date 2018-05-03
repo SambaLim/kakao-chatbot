@@ -31,7 +31,7 @@ def Message():
 	if content == u"시작하기":
 		dataSend = {
 			"message" : {
-				"text" : "오늘의 날씨는 {}이고\n온도는 {}℃네요.\n원하는 항목을 선택 혹은 대화창에 적어주세요.".format(weather, temp)
+				"text" : "안녕하세요."
 			}
 		}
 	return jsonify(dataSend)
