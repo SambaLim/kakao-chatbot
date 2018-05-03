@@ -50,7 +50,7 @@ def Message():
 	# 날씨 정보 출력하기
 	regionCode = "09530540"
 	weather, temp = get_weather(regionCode)
-	winfo = "오늘 날씨는 " + weather + "이고, 온도는" + temp + "℃ 입니다. \n오늘의 날씨는 메뉴를 선택하는데 영향을 미칩니다!" 
+	winfo = "오늘 날씨는 " + str(weather) + "이고, 온도는" + str(temp) + "℃ 입니다. \n오늘의 날씨는 메뉴를 선택하는데 영향을 미칩니다!" 
 	
 	if content == u"시작하기":
 		dataSend = {
