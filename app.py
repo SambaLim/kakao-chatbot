@@ -1,9 +1,9 @@
-
-from flask import Flask, request, jsonify
-
 import time
 import re
 import requests
+
+from flask import Flask, request, jsonify
+
 
 app = Flask(__name__)
 
