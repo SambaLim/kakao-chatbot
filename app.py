@@ -8,7 +8,7 @@ import requests
 
 
 app = Flask(__name__)
-hannanum = Hannanum()
+# hannanum = Hannanum()
 
 '''
 @app.route('/')
