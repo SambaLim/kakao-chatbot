@@ -29,7 +29,6 @@ def Keyboard():
 @app.route('/message', methods=['Post'])
 def Message():
 
-
 	dataReceive = request.get_json()
 	content = dataReceive['content']
 	
@@ -38,6 +37,9 @@ def Message():
 	hello = today + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n점심 음식점, 메뉴 걱정말고 저에게 맡겨주세요!" 
 	
 	# 날씨 정보 출력하기
+	regionCode = "09530540"
+	weather, temp = get_weather(regionCode)
+	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 	
 	if content == u"시작하기":
 		dataSend = {
@@ -48,11 +50,21 @@ def Message():
 	elif content == u"날씨":
 		dataSend = {
 			"message" : {
-				"text" : "곧 날씨정보도 알려드릴 예정입니다."
+				"text" : winfo
 			}
 		}
 	return jsonify(dataSend)
 
+def get_weather(regionCode):
+	url = "https://m.weather.naver.com/m/main.nhn?regionCode=" + regionCode
+	summary_regex = r"weather_set_summary\">(.+?)<br>"
+	nowTemp_regex = r"degree_code full\">(.+?)</em>"
+	response = requests.get(url)
+	data = response.text
+	summary = re.search(summary_regex, data)
+	nowTemp = re.search(nowTemp_regex, data)
+	
+	return summary.group(1), nowTemp.group(1)
 	
 if __name__ == '__main__':
 	app.run(debug=True)
