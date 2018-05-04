@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify, requests
+from flask import Flask, request, jsonify
 
 import time
 import re
+import requests
 
 
 app = Flask(__name__)
