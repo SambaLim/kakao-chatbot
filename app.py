@@ -8,7 +8,7 @@ import requests
 
 
 app = Flask(__name__)
-# hannanum = Hannanum()
+hannanum = Hannanum()
 
 '''
 @app.route('/')
@@ -44,11 +44,9 @@ def Message():
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 
-	'''
 	# 형태소 분석 테스트
 	test_h = hannanum.nouns(u"오늘 날씨 어때?")
 	test_h_1 = str(test_h[0])
-	'''
 	
 	if content == u"시작하기":
 		dataSend = {
@@ -62,14 +60,12 @@ def Message():
 				"text" : winfo
 			}
 		}
-	'''
 	elif content == u"형태소" :
 		dataSend = {
 			"message" : {
 				"text" : test_h_1
 			}
 		}
-	'''
 	return jsonify(dataSend)
 
 	
