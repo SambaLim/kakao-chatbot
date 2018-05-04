@@ -69,4 +69,3 @@ def get_weather(regionCode):
 	
 if __name__ == '__main__':
 	app.run(debug=True)
-	
