@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 
 import time
 import re
-# import requests
+import requests
 
 
 app = Flask(__name__)
@@ -55,4 +55,4 @@ def Message():
 
 	
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)
