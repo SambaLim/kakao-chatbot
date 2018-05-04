@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+
 from konlpy.tag import Hannanum
 
 import time
