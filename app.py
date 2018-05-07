@@ -55,7 +55,19 @@ def Message():
 		}
 	return jsonify(dataSend)
 
+# 지역의 코드를 가져오는 함수
+def get_naver_region(cityName):
+	baseUrl = 'https://m.weather.naver.com/ac?q_enc=utf-8&r_format=json&r_enc=utf-8&r_lt=1&st=1&q=' + cityName
+	response = requests.get(baseUrl)
+	if response.json()['items']==[]:
+		regionCode = None
+		return regionCode
+	else:
+		regionCode = response.json()['items'][0][0][1]
+		return str(regionCode[0)
 	
+
+# 지역의 날씨와 온도를 가져오는 함수	
 def get_weather(regionCode):
 	url = "https://m.weather.naver.com/m/main.nhn?regionCode=" + regionCode
 	summary_regex = r"weather_set_summary\">(.+?)<br>"
