@@ -49,9 +49,9 @@ def Message():
 	regionCode = "09530540"
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
-	text = str(content)
 	
 	# 언어분석 json
+	text = str(content)
 	requestJson = {
 		"accessKey" : accessKey,
 		"argument" : {
@@ -81,10 +81,10 @@ def Message():
 				"text" : winfo
 			}
 		}
-	elif content == u"테스트" :
+	else :
 		dataSend = {
 			"message" : {
-				"text" : text
+				"text" : "무슨 말안지 모르겠어요 ㅠ_ㅠ"
 			}
 		}
 	return jsonify(dataSend)
