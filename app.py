@@ -50,24 +50,13 @@ def Message():
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 	
-	# 언어분석 json
-	text = str(content)
-	requestJson = {
-		"accessKey" : accessKey,
-		"argument" : {
-			"text" : text,
-			"analysis_code" : analysisCode
-		}
-	}
-	http = urllib3.PoolManager()
-	response = http.request(
-		"POST",
-		openApiURL,
-		headers = {"Content-Type":"application/json; charset=UTF-8"},
-		body = json.dumps(requestJson).encode('utf-8')
-	)
-	dict = json.loads(response.data)
-
+	# 형태소 분석이 됐는지 확인하기
+	word_list = word_extract(content)
+	if len(content)>0 :
+		error_msg = "무슨 말안지 모르겠어요 ㅠ_ㅠ"
+	else :
+		error_msg = word_list[0] + " 들린다들려"
+	
 	# Message 본문
 	if content == u"시작하기":
 		dataSend = {
@@ -81,16 +70,10 @@ def Message():
 				"text" : winfo
 			}
 		}
-	elif word_there(dict, "오늘")==1:
-		 dataSend = {
-			"message" : {
-				"text" : "안녕하세요!"
-			}
-		 }
 	else :
 		dataSend = {
 			"message" : {
-				"text" : "무슨 말안지 모르겠어요 ㅠ_ㅠ"
+				"text" : error_msg
 			}
 		}
 	return jsonify(dataSend)
@@ -107,20 +90,31 @@ def get_weather(regionCode):
 	nowTemp = re.search(nowTemp_regex, data)
 	
 	return summary.group(1), nowTemp.group(1)
-	
-# 문장에서 특정 단어를 찾아내는 함수
-def word_there(sentence, word):
+
+# 문장에서 형태소만을 추출해내는 함수
+def word_extract(content):
 	word_list = []
+	text = str(content)
+	requestJson = {
+		"accessKey" : accessKey,
+		"argument" : {
+			"text" : text,
+			"analysis_code" : analysisCode
+		}
+	}
+	http = urllib3.PoolManager()
+	response = http.request(
+		"POST",
+		openApiURL,
+		headers = {"Content-Type":"application/json; charset=UTF-8"},
+		body = json.dumps(requestJson).encode('utf-8')
+	)
+	dict = json.loads(response.data)
 	sentence = dict['return_object']['sentence'][0]['morp']
 	for h in sentence:
-		if h['type']=="NNG":
-			word_list.append(h['lemma'])
-	
-	for i in range(len(word_list)):
-		if word_list[i]==word:
-			return 1
-		else : 
-			return 0
+		noun_list.append(str(h['lemma']))
+
+	return noun_list
 
 	
 if __name__ == '__main__':
