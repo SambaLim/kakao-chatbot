@@ -15,7 +15,14 @@ def hello_world():
 	return 'Hello World!'
 '''
 
+# 현재 날짜
 nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
+
+# 언어분석 API
+# http://aiopen.etri.re.kr/
+openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
+accessKey = "23dcec62-3fa0-4e1c-8bb4-266ca86ad359"
+analysisCode = "ner"
 
 # 입력을 받는 keyboard 부분
 @app.route('/keyboard')
@@ -42,7 +49,26 @@ def Message():
 	regionCode = "09530540"
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
+	
+	# 언어분석 json
+	requestJson = {
+		"accessKey" : accessKey,
+		"argument" : {
+			"text" : content,
+			"analysis_code" analysisCode
+		}
+	}
+	http = urllib3.PoolManager()
+	response = http.request{
+		"POST",
+		openApiURL,
+		headers = {"Content-Type":"application/json; charset=UTF-8"},
+		body = json.dumps(requestJson)
+	}
+	dict = json.load(response.data)
+	string_msg = dict['return_object']['sentence'][0]['morp']
 
+	# Message 본문
 	if content == u"시작하기":
 		dataSend = {
 			"message" : {
