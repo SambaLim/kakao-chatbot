@@ -65,7 +65,7 @@ def Message():
 		headers = {"Content-Type":"application/json; charset=UTF-8"},
 		body = json.dumps(requestJson).encode('utf-8')
 	)
-	dict = json.load(response.data)
+	dict = json.loads(response.data)
 	string_msg = dict['return_object']['sentence'][0]['morp']
 
 	# Message 본문
