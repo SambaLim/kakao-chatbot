@@ -60,10 +60,16 @@ def Message():
 				"text" : winfo
 			}
 		}
-	elif word_there(word_list, "안녕")>=1:
+	elif word_there(word_list, "안녕")>=1 :
 		dataSend = {
 			"message" : {
-				"text" : "안녕하세요!\n이제 귀가 생겼어요!"
+				"text" : "안녕하세요!오늘 하루도 맛점하세요!"
+			}
+		}
+	elif word_there(word_list, "점심")>=1 :
+		dataSend = {
+			"message" : {
+				"text" : "점심추천 기능이 추가될 예정이에요! 기대해주세요.\nComming Soon..."
 			}
 		}
 	else :
