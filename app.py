@@ -67,7 +67,7 @@ def Message():
 		body = json.dumps(requestJson).encode('utf-8')
 	)
 	dict = json.loads(response.data)
-	if dict != null:
+	if dict != None:
 		sentence = dict['return_object']['sentence'][0]['morp']
 	else :
 		return
