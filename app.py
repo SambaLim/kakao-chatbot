@@ -133,3 +133,4 @@ def word_there(list, word):
 	
 if __name__ == '__main__':
 	app.run(debug=True)
+	
