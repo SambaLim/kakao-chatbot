@@ -81,7 +81,7 @@ def Message():
 				"text" : winfo
 			}
 		}
-	elif content == u"테스트"
+	elif content == u"테스트" :
 		dataSend = {
 			"message" : {
 				"text" : text
