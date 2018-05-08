@@ -85,9 +85,9 @@ def get_weather(regionCode):
 def word_extract(content):
 	# 언어분석 API
 	# http://aiopen.etri.re.kr/
-	openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
-	accessKey = u"23dcec62-3fa0-4e1c-8bb4-266ca86ad359"
-	analysisCode = "ner"
+	openApiURL = 'http://aiopen.etri.re.kr:8000/WiseNLU'
+	accessKey = '23dcec62-3fa0-4e1c-8bb4-266ca86ad359'
+	analysisCode = 'ner'
 	word_list = []
 	text = str(content)
 	requestJson = {
@@ -102,7 +102,7 @@ def word_extract(content):
 		"POST",
 		openApiURL,
 		headers = {"Content-Type":"application/json; charset=UTF-8"},
-		body = json.dumps(requestJson).encode('utf-8')
+		body = json.dumps(requestJson)
 	)
 	dict = json.loads(response.data)
 	'''
