@@ -54,7 +54,7 @@ def Message():
 				"text" : hello
 			}
 		}
-	elif content == u"날씨" :
+	elif word_there(word_list, "날씨")>=1 :
 		dataSend = {
 			"message" : {
 				"text" : winfo
