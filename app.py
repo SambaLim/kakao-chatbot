@@ -18,12 +18,6 @@ def hello_world():
 # 현재 날짜
 nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
 
-# 언어분석 API
-# http://aiopen.etri.re.kr/
-openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
-accessKey = "23dcec62-3fa0-4e1c-8bb4-266ca86ad359"
-analysisCode = "ner"
-
 # 입력을 받는 keyboard 부분
 @app.route('/keyboard')
 def Keyboard():
@@ -89,6 +83,11 @@ def get_weather(regionCode):
 
 # 문장에서 형태소만을 추출해내는 함수
 def word_extract(content):
+	# 언어분석 API
+	# http://aiopen.etri.re.kr/
+	openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
+	accessKey = u"23dcec62-3fa0-4e1c-8bb4-266ca86ad359"
+	analysisCode = "ner"
 	word_list = []
 	text = str(content)
 	requestJson = {
