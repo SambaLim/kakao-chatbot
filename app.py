@@ -66,7 +66,6 @@ def Message():
 		body = json.dumps(requestJson).encode('utf-8')
 	)
 	dict = json.loads(response.data)
-	strmsg = dict['return_object']['sentence'][0]['morp']
 
 	# Message 본문
 	if content == u"시작하기":
