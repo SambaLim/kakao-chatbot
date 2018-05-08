@@ -63,7 +63,7 @@ def Message():
 	else :
 		dataSend = {
 			"message" : {
-				"text" : word_list
+				"text" : word_list[0]
 			}
 		}
 	return jsonify(dataSend)
@@ -105,12 +105,10 @@ def word_extract(content):
 		body = json.dumps(requestJson)
 	)
 	dict = json.loads(response.data)
-	'''
 	sentence = dict['return_object']['sentence'][0]['morp']
 	for h in sentence:
 		noun_list.append(str(h['lemma']))
-
-	'''
+		
 	return str(dict)
 
 	
