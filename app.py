@@ -63,7 +63,7 @@ def Message():
 	elif word_there(word_list, "안녕")>=1 :
 		dataSend = {
 			"message" : {
-				"text" : "안녕하세요!오늘 하루도 맛점하세요!"
+				"text" : "안녕하세요! 오늘 하루도 맛점하세요!"
 			}
 		}
 	elif word_there(word_list, "점심")>=1 :
