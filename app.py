@@ -91,7 +91,7 @@ def word_extract(content):
 	word_list = []
 	text = str(content)
 	requestJson = {
-		"accessKey" : accessKey,
+		"access_key" : accessKey,
 		"argument" : {
 			"text" : text,
 			"analysis_code" : analysisCode
