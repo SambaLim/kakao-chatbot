@@ -39,7 +39,7 @@ def Keyboard():
 def Message():
 
 	dataReceive = request.get_json()
-	content = str(dataReceive['content'])
+	content = dataReceive['content']
 	
 	# 첫 인삿말 만들기
 	today = str(nowdate)
@@ -52,10 +52,6 @@ def Message():
 	
 	# 형태소 분석이 됐는지 확인하기
 	word_list = word_extract(content)
-	if len(content)>0 :
-		error_msg = "무슨 말안지 모르겠어요 ㅠ_ㅠ"
-	else :
-		error_msg = word_list[0] + " 들린다들려"
 	
 	# Message 본문
 	if content == u"시작하기":
@@ -73,7 +69,7 @@ def Message():
 	else :
 		dataSend = {
 			"message" : {
-				"text" : error_msg
+				"text" : word_list
 			}
 		}
 	return jsonify(dataSend)
@@ -110,11 +106,13 @@ def word_extract(content):
 		body = json.dumps(requestJson).encode('utf-8')
 	)
 	dict = json.loads(response.data)
+	'''
 	sentence = dict['return_object']['sentence'][0]['morp']
 	for h in sentence:
 		noun_list.append(str(h['lemma']))
 
-	return noun_list
+	'''
+	return str(dict)
 
 	
 if __name__ == '__main__':
