@@ -60,7 +60,7 @@ def Message():
 				"text" : winfo
 			}
 		}
-	elif word_there(word_list, "안녕")==1:
+	elif word_there(word_list, "안녕")>=1:
 		dataSend = {
 			"message" : {
 				"text" : "안녕하세요!\n이제 귀가 생겼어요!"
@@ -117,14 +117,13 @@ def word_extract(content):
 		
 	return word_list
 	
-# 단어 목록에서 특정 단어가 있는지 확인하는 함수
+# 단어 목록에서 특정 단어가 있는지 확인하는 함수 // return 값이 오류가 날 수 있어 변수값으로 바꾸고 진행해볼 것
 def word_there(list, word):
+	cnt = 0
 	for i in range(0, len(list)):
 		if list[i]==word:
-			return 1
-		else:
-			return 0
-
+			cnt = cnt + 1
+	return cnt
 	
 if __name__ == '__main__':
 	app.run(debug=True)
