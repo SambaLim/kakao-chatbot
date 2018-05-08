@@ -59,12 +59,12 @@ def Message():
 		}
 	}
 	http = urllib3.PoolManager()
-	response = http.request{
+	response = http.request(
 		"POST",
 		openApiURL,
 		headers = {"Content-Type":"application/json; charset=UTF-8"},
 		body = json.dumps(requestJson)
-	}
+	)
 	dict = json.load(response.data)
 	string_msg = dict['return_object']['sentence'][0]['morp']
 
