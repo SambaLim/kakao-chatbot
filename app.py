@@ -107,7 +107,7 @@ def word_extract(content):
 	dict = json.loads(response.data)
 	sentence = dict['return_object']['sentence'][0]['morp']
 	for h in sentence:
-		noun_list.append(str(h['lemma']))
+		word_list.append(str(h['lemma']))
 		
 	return str(dict)
 
