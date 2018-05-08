@@ -18,12 +18,6 @@ def hello_world():
 # 현재 날짜
 nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
 
-# 언어분석 API
-# http://aiopen.etri.re.kr/
-openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
-accessKey = "23dcec62-3fa0-4e1c-8bb4-266ca86ad359"
-analysisCode = "ner"
-
 # 입력을 받는 keyboard 부분
 @app.route('/keyboard')
 def Keyboard():
@@ -49,6 +43,12 @@ def Message():
 	regionCode = "09530540"
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
+
+	# 언어분석 API
+	# http://aiopen.etri.re.kr/
+	openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"
+	accessKey = "23dcec62-3fa0-4e1c-8bb4-266ca86ad359"
+	analysisCode = "ner"
 	
 	# 언어분석 json
 	requestJson = {
