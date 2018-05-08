@@ -109,7 +109,7 @@ def word_extract(content):
 	for h in sentence:
 		word_list.append(str(h['lemma']))
 		
-	return str(dict)
+	return word_list
 
 	
 if __name__ == '__main__':
