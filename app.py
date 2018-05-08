@@ -39,7 +39,7 @@ def Keyboard():
 def Message():
 
 	dataReceive = request.get_json()
-	content = dataReceive['content']
+	content = str(dataReceive['content'])
 	
 	# 첫 인삿말 만들기
 	today = str(nowdate)
