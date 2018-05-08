@@ -60,10 +60,16 @@ def Message():
 				"text" : winfo
 			}
 		}
+	elif word_there(word_list, "안녕")==1:
+		dataSend = {
+			"message" : {
+				"text" : "안녕하세요!\n이제 귀가 생겼어요!"
+			}
+		}
 	else :
 		dataSend = {
 			"message" : {
-				"text" : word_list[0]
+				"text" : "무슨말인지 잘 모르겠어요 ㅠ_ㅠ"
 			}
 		}
 	return jsonify(dataSend)
@@ -110,6 +116,14 @@ def word_extract(content):
 		word_list.append(str(h['lemma']))
 		
 	return word_list
+	
+# 단어 목록에서 특정 단어가 있는지 확인하는 함수
+def word_there(list, word):
+	for i in range(0, len(list)):
+		if list[i]==word:
+			return 1
+		else:
+			return 0
 
 	
 if __name__ == '__main__':
