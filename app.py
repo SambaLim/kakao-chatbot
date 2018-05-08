@@ -81,7 +81,7 @@ def Message():
 				"text" : winfo
 			}
 		}
-	elif word_there(dict, "안녕")==1:
+	elif word_there(dict, "오늘")==1:
 		 dataSend = {
 			"message" : {
 				"text" : "안녕하세요!"
