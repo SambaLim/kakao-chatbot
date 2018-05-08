@@ -67,10 +67,6 @@ def Message():
 		body = json.dumps(requestJson).encode('utf-8')
 	)
 	dict = json.loads(response.data)
-	if dict != None:
-		sentence = dict['return_object']['sentence'][0]['morp']
-	else :
-		return
 
 	# Message 본문
 	if content == u"시작하기":
@@ -85,7 +81,7 @@ def Message():
 				"text" : winfo
 			}
 		}
-	elif word_there(sentence, "안녕")==1:
+	elif word_there(dict, "안녕")==1:
 		 dataSend = {
 			"message" : {
 				"text" : "안녕하세요!"
@@ -115,6 +111,7 @@ def get_weather(regionCode):
 # 문장에서 특정 단어를 찾아내는 함수
 def word_there(sentence, word):
 	word_list = []
+	sentence = dict['return_object']['sentence'][0]['morp']
 	for h in sentence:
 		if h['type']=="NNG":
 			word_list.append(h['lemma'])
