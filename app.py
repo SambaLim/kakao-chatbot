@@ -67,7 +67,6 @@ def Message():
 					"text" : winfo
 				}
 			}
-		}
 	elif word_there(word_list, "안녕")>=1 :
 		dataSend = {
 			"message" : {
