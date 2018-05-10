@@ -79,7 +79,13 @@ def Message():
 				"text" : "점심추천 기능이 추가될 예정이에요! 기대해주세요.\nComming Soon..."
 			}
 		}
-	elif (word_there(word_list, "고맙")>=1 || word_there(word_list, "감사")>=1) :
+	elif word_there(word_list, "고맙")>=1 :
+		dataSend = {
+			"message" : {
+				"text" : "저야말로 감사합니다!\n필요한 일이 있으면 또 불려주세요!!!"
+			}
+		}
+	elif word_there(word_list, "감사")>=1 :
 		dataSend = {
 			"message" : {
 				"text" : "저야말로 감사합니다!\n필요한 일이 있으면 또 불려주세요!!!"
