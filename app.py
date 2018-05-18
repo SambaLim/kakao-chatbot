@@ -49,11 +49,17 @@ def Message():
 	# 형태소 분석이 됐는지 확인하기
 	word_list = word_extract(content)
 	
+	# user_key firestore에 저장해보기
+	doc_ref = db.collection(u'kakaobot').document(user_key)
+	doc_ref.set({
+		'content' : content
+	})
+	
 	# Message 본문
 	if content == u"시작하기":
 		dataSend = {
 			"message" : {
-				"text" : user_key
+				"text" : hello
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
