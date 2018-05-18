@@ -22,7 +22,11 @@ def hello_world():
 # 현재 날짜
 nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
 
-# 데이터베이스(firestre) 자체 서버에서 초기화
+# 데이터베이스(firestre) 초기화
+cred = credentials.Certificate('first-58ff5b88bb57.json')
+firebase_admin.initialize_app(cred)
+
+db = firestore.client()
 
 # 입력을 받는 keyboard 부분
 @app.route('/keyboard')
