@@ -35,6 +35,7 @@ def Message():
 
 	dataReceive = request.get_json()
 	content = dataReceive['content']
+	user_key = dataReceivde['user_key']
 	
 	# 첫 인삿말 만들기
 	today = str(nowdate)
@@ -52,7 +53,7 @@ def Message():
 	if content == u"시작하기":
 		dataSend = {
 			"message" : {
-				"text" : hello
+				"text" : user_key
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
