@@ -50,7 +50,7 @@ def Message():
 	word_list = word_extract(content)
 	
 	# user_key firestore에 저장해보기
-	doc_ref = db.collection(u'kakaobot').document(user_key)
+	doc_ref = db.collection(u'user').document(user_key)
 	doc_ref.set({
 		'content' : content
 	})
@@ -78,7 +78,7 @@ def Message():
 	elif word_there(word_list, "안녕")>=1 :
 		dataSend = {
 			"message" : {
-				"text" : "안녕하세요! 오늘 하루도 맛점하세요!"
+				"text" : "안녕하세요! 오늘 기분은 어떠신가요?"
 			}
 		}
 	elif word_there(word_list, "점심")>=1 :
