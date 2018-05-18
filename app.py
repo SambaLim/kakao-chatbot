@@ -5,6 +5,7 @@ import re
 import requests
 import urllib3
 import json
+import random
 
 import firebase_admin
 from firebase_admin import credentials
@@ -55,6 +56,16 @@ def Message():
 		'content' : content
 	})
 	
+	# 재미로 랜덤 점심추천 만들기
+	restaurant_list = []
+	docs = db.collection(u'restaurant').get()
+	for doc in docs:
+		string = '{}'.format(doc.id)
+		restaurant_list.append(string)
+	
+	i = random.randint(0, len(restaurant_list)-1)
+	lunch = "오늘 점심은 " + restaurant_list[i] + " 어때요?"
+	
 	# Message 본문
 	if content == u"시작하기":
 		dataSend = {
@@ -84,7 +95,7 @@ def Message():
 	elif word_there(word_list, "점심")>=1 :
 		dataSend = {
 			"message" : {
-				"text" : "점심추천 기능이 추가될 예정이에요! 기대해주세요.\nComming Soon..."
+				"text" : lunch
 			}
 		}
 	elif word_there(word_list, "고맙")>=1 :
