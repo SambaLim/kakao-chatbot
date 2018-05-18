@@ -35,7 +35,7 @@ def Message():
 
 	dataReceive = request.get_json()
 	content = dataReceive['content']
-	user_key = dataReceivde['user_key']
+	user_key = dataReceive['user_key']
 	
 	# 첫 인삿말 만들기
 	today = str(nowdate)
