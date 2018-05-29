@@ -61,12 +61,14 @@ def Message():
 	# 형태소 분석이 됐는지 확인하기
 	word_list = word_extract(content)
 	
+	'''
 	# user_key firestore에 저장해보기
 	doc_ref = db.collection(u'user').document(user_key)
 	doc_ref.set({
 		'content' : content
 	})
-
+	'''
+	
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
 	choice1 = random_menu(docs)
@@ -74,18 +76,21 @@ def Message():
 	
 	# Message 본문
 	if content == u"★ 시작하기":
+		store_user_state(user_key, CONVERSATION_NORMAL)
 		dataSend = {
 			"message" : {
 				"text" : hello
 			}
 		}
 	elif content == u"★ 도움말":
+		store_user_state(user_key, CONVERSATION_NORMAL)
 		dataSend = {
 			"message" : {
 				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
+		store_user_state(user_key, CONVERSATION_WEATHER)
 		if word_there(word_list, "내일")>=1 :
 			dataSend = {
 				"message" : {
@@ -112,6 +117,7 @@ def Message():
 				}
 			}
 		else :
+			store_user_state(user_key, CONVERSATION_LUNCH)
 			dataSend = {
 				"message" : {
 					"text" : lunch
@@ -209,7 +215,15 @@ def random_menu(docs):
 	choice = restaurant_list[i]
 	
 	return choice
-		
+
+# User의 상태를 DB에 저장하는 함수
+def store_user_state(user_key, state):
+	doc_ref = db.collection(u'user').document(user_key)
+		doc_ref.set({
+		'state' : state
+	})
+
+
 if __name__ == '__main__':
 	app.run(debug=True)
 	
