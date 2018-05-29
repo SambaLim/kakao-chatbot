@@ -219,7 +219,7 @@ def random_menu(docs):
 # User의 상태를 DB에 저장하는 함수
 def store_user_state(user_key, state):
 	doc_ref = db.collection(u'user').document(user_key)
-		doc_ref.set({
+	doc_ref.set({
 		'state' : state
 	})
 
