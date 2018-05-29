@@ -170,8 +170,8 @@ def word_there(list, word):
 	
 def word_list_there(ask_list, ans_list):
 	cnt = 0
-	for j in range(0, len(ans_list):
-		for i in range(0, len(ask_list):
+	for j in range(0, len(ans_list)):
+		for i in range(0, len(ask_list)):
 			if ans_list[j]==ask_list[i]
 				cnt = cnt + 1
 	return cnt
