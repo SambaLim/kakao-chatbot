@@ -62,11 +62,10 @@ def Message():
 	word_list = word_extract(content)
 	
 	# user_key firestore에 저장해보기
-	doc_ref = db.collection(u'user').document(user_key)
-	doc_ref.set({
-		'content' : content
+	user = db.collection(u'user').document(user_key)
+	user.set({
+		'state' : CONVERSATION_NORMAL
 	})
-	
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
 	choice1 = random_menu(docs)
