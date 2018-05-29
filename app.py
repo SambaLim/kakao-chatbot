@@ -45,9 +45,9 @@ def Message():
 	list_lunch = ["점심", "메뉴", "뭐먹"]
 	
 	# 상태를 정해주는 함수 만들기
-	CONVERSATION_LUNCH = "점심선택중"
-	CONVERSATION_WEATHER = "날씨대화중"
-	CONVERSATION_NORMAL = "일상대화중"
+	CONVERSATION_NORMAL = "일상대화"
+	CONVERSATION_LUNCH = "점심대화"
+	CONVERSATION_WEATHER = "날씨대화"
 	
 	# 첫 인삿말 만들기
 	today = str(nowdate)
@@ -69,7 +69,7 @@ def Message():
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
-	choice1 = random_restaurant(docs)
+	choice1 = random_menu(docs)
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
 	
 	# Message 본문
@@ -105,9 +105,7 @@ def Message():
 			}
 		}
 	elif word_list_there(word_list, list_lunch)>=1 :
-		doc_ref.set({
-			'state' : CONVERSATION_LUNCH
-		})
+		user_state(CONVERSATION_LUNCH)
 		if word_list_there(word_list,list_eat_Nono):
 			dataSend = {
 				"message" : {
@@ -192,6 +190,7 @@ def word_there(list, word):
 			cnt = cnt + 1
 	return cnt
 	
+# 단어 목록에서 단어 리스트가 있는지 확인하는 함수
 def word_list_there(ask_list, ans_list):
 	cnt = 0
 	for j in range(0, len(ans_list)):
@@ -200,7 +199,8 @@ def word_list_there(ask_list, ans_list):
 				cnt = cnt + 1
 	return cnt
 	
-def random_restaurant(docs):
+# 임의의 메뉴를 선택해주는 함수
+def random_menu(docs):
 	restaurant_list = []
 	for doc in docs:
 		string = '{}'.format(doc.id)
@@ -211,6 +211,11 @@ def random_restaurant(docs):
 	
 	return choice
 		
+# 사용자의 상태를 DB에 옮기는 함수
+def user_state(CONST_State):
+	doc_ref.set({
+		'state' : CONVERSATION_LUNCH
+	})
 	
 if __name__ == '__main__':
 	app.run(debug=True)
