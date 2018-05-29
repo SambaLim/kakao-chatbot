@@ -56,15 +56,13 @@ def Message():
 		'content' : content
 	})
 	
-	# 재미로 랜덤 점심추천 만들기
-	restaurant_list = []
+	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
-	for doc in docs:
-		string = '{}'.format(doc.id)
-		restaurant_list.append(string)
+	choice1 = random_restaurant(docs)
+	lunch = "오늘 점심은 " + choice1 + " 어때요?"
 	
-	i = random.randint(0, len(restaurant_list)-1)
-	lunch = "오늘 점심은 " + restaurant_list[i] + " 어때요?"
+	# 리스트 비교용 단어 리스트
+	list_thanks = [고맙, 감사]
 	
 	# Message 본문
 	if content == u"시작하기":
@@ -98,13 +96,7 @@ def Message():
 				"text" : lunch
 			}
 		}
-	elif word_there(word_list, "고맙")>=1 :
-		dataSend = {
-			"message" : {
-				"text" : "저야말로 감사합니다!\n필요한 일이 있으면 또 불려주세요!!!"
-			}
-		}
-	elif word_there(word_list, "감사")>=1 :
+	elif word_list_there(word_list, list_thanks)>=1 :
 		dataSend = {
 			"message" : {
 				"text" : "저야말로 감사합니다!\n필요한 일이 있으면 또 불려주세요!!!"
@@ -175,6 +167,26 @@ def word_there(list, word):
 		if list[i]==word:
 			cnt = cnt + 1
 	return cnt
+	
+def word_list_there(ask_list, ans_list):
+	cnt = 0
+	for j in range(0, len(ans_list):
+		for i in range(0, len(ask_list):
+			if ans_list[j]==ask_list[i]
+				cnt = cnt + 1
+	return cnt
+	
+def random_restaurant(docs):
+	restaurant_list = []
+	for doc in docs:
+		string = '{}'.format(doc.id)
+		restaurant_list.append(string)
+	
+	i = random.randint(0, len(restaurant_list)-1)
+	choice = restaurant_list[i]
+	
+	return choice
+		
 	
 if __name__ == '__main__':
 	app.run(debug=True)
