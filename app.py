@@ -323,5 +323,3 @@ def get_user_state(user):
 
 if __name__ == '__main__':
 	app.run(debug=True)
-	
-	
