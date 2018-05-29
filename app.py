@@ -44,7 +44,7 @@ def Message():
 	list_eat_Nono = ["안먹", "싫", "먹기싫"]
 	list_lunch = ["점심", "메뉴", "뭐먹"]
 	list_Yesyes = ["좋", "좋아"]
-	list_emo_Nono = ["안좋", "않"]
+	list_emo_Nono = ["안좋", "않", "안"]
 	
 	# 상태를 정해주는 함수 만들기
 	CONVERSATION_START = "시작대화"
