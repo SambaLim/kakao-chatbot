@@ -47,6 +47,7 @@ def Message():
 	list_emo_Nono = ["안좋", "않"]
 	
 	# 상태를 정해주는 함수 만들기
+	CONVERSATION_START = "시작대화"
 	CONVERSATION_NORMAL = "일상대화"
 	CONVERSATION_LUNCH = "점심대화"
 	CONVERSATION_WEATHER = "날씨대화"
@@ -80,7 +81,7 @@ def Message():
 	# 초기 버튼 시작하기, 도움말 '★'로 구분
 	if content == u"★ 시작하기":
 		user.set({
-			'state' : CONVERSATION_NORMAL
+			'state' : CONVERSATION_START
 		})
 		dataSend = {
 			"message" : {
@@ -89,7 +90,7 @@ def Message():
 		}
 	elif content == u"★ 도움말":
 		user.set({
-			'state' : CONVERSATION_NORMAL
+			'state' : CONVERSATION_START
 		})
 		dataSend = {
 			"message" : {
@@ -132,6 +133,8 @@ def Message():
 					"text" : lunch
 				}
 			}
+	
+	# 동음이의어 구분하기 "좋아"
 	elif word_list_there(word_list, list_Yesyes)>=1 :
 		if user_state==CONVERSATION_NORMAL :
 			if word_list_there(word_list, list_emo_Nono)>=1:
@@ -157,6 +160,19 @@ def Message():
 				dataSend = {
 					"message" : {
 						"text" : "가시죠!!!"
+					}
+				}
+		elif user_state==CONVERSATION_START :
+			if word_list_there(word_list, list_emo_Nono)>=1 :
+				dataSend = {
+					"message" : {
+						"text" : "써보시면 좋게될거에요!"
+					}
+				}
+			else : 
+				dataSend = {
+					"message" : {
+						"text" : "점심메뉴추천, 오늘날씨 등을 알고있어요!"
 					}
 				}
 				
