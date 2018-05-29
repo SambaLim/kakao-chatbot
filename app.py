@@ -260,7 +260,7 @@ def word_extract(content):
 	# 언어분석 API
 	# http://aiopen.etri.re.kr/
 	openApiURL = 'http://aiopen.etri.re.kr:8000/WiseNLU'
-	accessKey = '23dcec62-3fa0-4e1c-8bb4-266ca86ad359'
+	accessKey = 'API키를 입력하시면 됩니다.'
 	analysisCode = 'ner'
 	word_list = []
 	text = str(content)
