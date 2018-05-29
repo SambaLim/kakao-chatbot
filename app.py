@@ -178,11 +178,9 @@ def word_there(list, word):
 	
 if __name__ == '__main__':
 	app.run(debug=True)
+
 	
-<<<<<<< HEAD
 def start_fireStore():
 	cred = credentials.Certificate('first-58ff5b88bb57.json')
 	firebase_admin.initialize_app(cred)
 	db = firestore.client()
-=======
->>>>>>> 2c7d0f52c1072c135480df24263291b2f5190a96
