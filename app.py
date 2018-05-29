@@ -43,6 +43,7 @@ def Message():
 	list_hello = ["안녕", "하이", "헬로"]
 	list_eat_Nono = ["안먹", "싫", "먹기싫"]
 	list_lunch = ["점심", "메뉴", "뭐먹"]
+	list_Yesyes = ["좋", "좋아"]
 	list_emo_Nono = ["안좋", "않"]
 	
 	# 상태를 정해주는 함수 만들기
@@ -131,7 +132,7 @@ def Message():
 					"text" : lunch
 				}
 			}
-	elif word_there(word_list, "좋")>=1 :
+	elif word_list_there(word_list, list_Yesyes)>=1 :
 		if user_state==CONVERSATION_NORMAL :
 			if word_list_there(word_list, list_emo_Nono)>=1:
 				dataSend = {
