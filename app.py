@@ -43,6 +43,7 @@ def Message():
 	list_hello = ["안녕", "하이", "헬로"]
 	list_eat_Nono = ["안먹", "싫", "먹기싫"]
 	list_lunch = ["점심", "메뉴", "뭐먹"]
+	list_emo_Nono = ["안좋", "않"]
 	
 	# 상태를 정해주는 함수 만들기
 	CONVERSATION_NORMAL = "일상대화"
@@ -63,8 +64,8 @@ def Message():
 	
 	# user_key firestore에 저장해보기
 	user = db.collection(u'user').document(user_key)
-	test = get_user_state(user)
-	if test==CONVERSATION_NORMAL:
+	user_state = get_user_state(user)
+	if user_state==CONVERSATION_NORMAL:
 		user.set({
 			'state' : CONVERSATION_NORMAL
 		})
@@ -75,34 +76,27 @@ def Message():
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
 	
 	# Message 본문
+	# 초기 버튼 시작하기, 도움말 '★'로 구분
 	if content == u"★ 시작하기":
+		user.set({
+			'state' : CONVERSATION_NORMAL
+		})
 		dataSend = {
 			"message" : {
 				"text" : hello
 			}
 		}
 	elif content == u"★ 도움말":
+		user.set({
+			'state' : CONVERSATION_NORMAL
+		})
 		dataSend = {
 			"message" : {
 				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
 			}
 		}
-	elif word_there(word_list, "날씨")>=1 :
-		user.set({
-			'state' : CONVERSATION_WEATHER
-		})
-		if word_there(word_list, "내일")>=1 :
-			dataSend = {
-				"message" : {
-					"text" : "저는 오늘의 날씨밖에 알 수 없어요 ㅠ_ㅠ"
-				}
-			}
-		else :
-			dataSend = {
-				"message" : {
-					"text" : winfo
-				}
-			}
+
+	# 일상 대화를 위한 인사
 	elif word_list_there(word_list, list_hello)>=1 :
 		user.set({
 			'state' : CONVERSATION_NORMAL
@@ -112,6 +106,15 @@ def Message():
 				"text" : "안녕하세요! 오늘 기분은 어떠신가요?"
 			}
 		}
+	# 일상대화 감사표하기
+	elif word_list_there(word_list, list_thanks)>=1 :
+		dataSend = {
+			"message" : {
+				"text" : "저야말로 감사합니다!\n필요한 일이 있으면 또 불려주세요!!!"
+			}
+		}
+		
+	# 점심 메뉴 추천
 	elif word_list_there(word_list, list_lunch)>=1 :
 		user.set({
 			'state' : CONVERSATION_LUNCH
@@ -128,12 +131,53 @@ def Message():
 					"text" : lunch
 				}
 			}
-	elif word_list_there(word_list, list_thanks)>=1 :
-		dataSend = {
-			"message" : {
-				"text" : "저야말로 감사합니다!\n필요한 일이 있으면 또 불려주세요!!!"
+	elif word_there(word_list, "좋")>=1 :
+		if user_state==CONVERSATION_NORMAL :
+			if word_list_there(word_list, list_emo_Nono)>=1:
+				dataSend = {
+					"message" : {
+						"text" : "매운걸 드셔보시는건 어때요?\n스트레스가 날아갈거에요!"
+					}
+				}
+			else : 
+				dataSend = {
+					"message" : {
+						"text" : "저도 기분좋은 하루가 될 것 같아요!"
+					}
+				}
+		elif user_state==CONVERSATION_LUNCH :
+			if word_list_there(word_list, list_emo_Nono)>=1 :
+				dataSend = {
+					"message" : {
+						"text" : lunch
+					}
+				}
+		else : 
+			dataSend = {
+				"message" : {
+					"text" : "가시죠!!!"
+				}
 			}
-		}
+				
+	# 날씨를 알려주는 부분
+	elif word_there(word_list, "날씨")>=1 :
+		user.set({
+			'state' : CONVERSATION_WEATHER
+		})
+		if word_there(word_list, "내일")>=1 :
+			dataSend = {
+				"message" : {
+					"text" : "저는 오늘의 날씨밖에 알 수 없어요 ㅠ_ㅠ"
+				}
+			}
+		else :
+			dataSend = {
+				"message" : {
+					"text" : winfo
+				}
+			}
+							
+	# 모르는 말이 나왔을 때
 	else :
 		dataSend = {
 			"message" : {
