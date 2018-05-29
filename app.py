@@ -65,6 +65,7 @@ def Message():
 	list_thanks = ["고맙", "감사"]
 	list_hello = ["안녕", "하이", "헬로"]
 	list_eat_Nono = ["안먹", "싫", "먹기싫"]
+	list_lunch = ["점심", "메뉴", "뭐먹"]
 	
 	# Message 본문
 	if content == u"★ 시작하기":
@@ -76,7 +77,7 @@ def Message():
 	elif content == u"★ 도움말":
 		dataSend = {
 			"message" : {
-				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다.\n.\n.\n.\n문의:limsungho07@hanmail.net"
+				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\ngithub:https://github.com/SambaLim"
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
@@ -98,7 +99,7 @@ def Message():
 				"text" : "안녕하세요! 오늘 기분은 어떠신가요?"
 			}
 		}
-	elif word_there(word_list, "점심")>=1 :
+	elif word_list_there(word_list, list_lunch)>=1 :
 		if word_list_there(word_list,list_eat_Nono):
 			dataSend = {
 				"message" : {
