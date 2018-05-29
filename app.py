@@ -61,7 +61,6 @@ def Message():
 	# 형태소 분석이 됐는지 확인하기
 	word_list = word_extract(content)
 	
-
 	# user_key firestore에 저장해보기
 	doc_ref = db.collection(u'user').document(user_key)
 	doc_ref.set({
