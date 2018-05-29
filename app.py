@@ -112,7 +112,6 @@ def Message():
 				}
 			}
 		else :
-			store_user_state(doc_ref, CONVERSATION_LUNCH)
 			dataSend = {
 				"message" : {
 					"text" : lunch
