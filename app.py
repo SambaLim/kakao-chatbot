@@ -88,6 +88,9 @@ def Message():
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
+		user.set({
+			'state' : CONVERSATION_WEATHER
+		})
 		if word_there(word_list, "내일")>=1 :
 			dataSend = {
 				"message" : {
@@ -101,6 +104,9 @@ def Message():
 				}
 			}
 	elif word_list_there(word_list, list_hello)>=1 :
+		user.set({
+			'state' : CONVERSATION_NORMAL
+		})
 		dataSend = {
 			"message" : {
 				"text" : "안녕하세요! 오늘 기분은 어떠신가요?"
