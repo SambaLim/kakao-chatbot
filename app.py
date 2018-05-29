@@ -76,6 +76,7 @@ def Message():
 	docs = db.collection(u'restaurant').get()
 	choice1 = random_menu(docs)
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
+	lunch_else = "아니면" + choice1 + " 어때요?"
 	
 	# Message 본문
 	# 초기 버튼 시작하기, 도움말 '★'로 구분
@@ -153,7 +154,7 @@ def Message():
 			if word_list_there(word_list, list_emo_Nono)>=1 :
 				dataSend = {
 					"message" : {
-						"text" : lunch
+						"text" : else_lunch
 					}
 				}
 			else : 
@@ -172,7 +173,7 @@ def Message():
 			else : 
 				dataSend = {
 					"message" : {
-						"text" : "점심메뉴추천, 오늘날씨 등을 알고있어요!"
+						"text" : "좋아요! 저는 점심메뉴추천, 오늘날씨 등을 알고있어요!"
 					}
 				}
 				
