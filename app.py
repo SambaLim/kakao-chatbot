@@ -105,7 +105,6 @@ def Message():
 			}
 		}
 	elif word_list_there(word_list, list_lunch)>=1 :
-		user_state(CONVERSATION_LUNCH)
 		if word_list_there(word_list,list_eat_Nono):
 			dataSend = {
 				"message" : {
@@ -211,12 +210,6 @@ def random_menu(docs):
 	
 	return choice
 		
-# 사용자의 상태를 DB에 옮기는 함수
-def user_state(CONST_State):
-	doc_ref.set({
-		'state' : CONVERSATION_LUNCH
-	})
-	
 if __name__ == '__main__':
 	app.run(debug=True)
 	
