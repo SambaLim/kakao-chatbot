@@ -152,12 +152,12 @@ def Message():
 						"text" : lunch
 					}
 				}
-		else : 
-			dataSend = {
-				"message" : {
-					"text" : "가시죠!!!"
+			else : 
+				dataSend = {
+					"message" : {
+						"text" : "가시죠!!!"
+					}
 				}
-			}
 				
 	# 날씨를 알려주는 부분
 	elif word_there(word_list, "날씨")>=1 :
