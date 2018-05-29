@@ -68,6 +68,7 @@ def Message():
 		'content' : content
 	})
 	'''
+	doc_ref = db.collection(u'user').document(user_key)
 	
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
@@ -76,21 +77,21 @@ def Message():
 	
 	# Message 본문
 	if content == u"★ 시작하기":
-		store_user_state(user_key, CONVERSATION_NORMAL)
+		store_user_state(doc_ref, CONVERSATION_NORMAL)
 		dataSend = {
 			"message" : {
 				"text" : hello
 			}
 		}
 	elif content == u"★ 도움말":
-		store_user_state(user_key, CONVERSATION_NORMAL)
+		store_user_state(doc_ref, CONVERSATION_NORMAL)
 		dataSend = {
 			"message" : {
 				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
-		store_user_state(user_key, CONVERSATION_WEATHER)
+		store_user_state(doc_ref, CONVERSATION_WEATHER)
 		if word_there(word_list, "내일")>=1 :
 			dataSend = {
 				"message" : {
@@ -117,7 +118,7 @@ def Message():
 				}
 			}
 		else :
-			store_user_state(user_key, CONVERSATION_LUNCH)
+			store_user_state(doc_ref, CONVERSATION_LUNCH)
 			dataSend = {
 				"message" : {
 					"text" : lunch
@@ -217,8 +218,7 @@ def random_menu(docs):
 	return choice
 
 # User의 상태를 DB에 저장하는 함수
-def store_user_state(user_key, state):
-	doc_ref = db.collection(u'user').document(user_key)
+def store_user_state(doc_ref, state):
 	doc_ref.set({
 		'state' : state
 	})
