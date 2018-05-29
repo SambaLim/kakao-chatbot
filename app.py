@@ -122,7 +122,9 @@ def Message():
 nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
 
 # 데이터베이스(firestre) 초기화
-start_fireStore()
+cred = credentials.Certificate('first-58ff5b88bb57.json')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 # 지역의 날씨와 온도를 가져오는 함수	
 def get_weather(regionCode):
@@ -141,7 +143,7 @@ def word_extract(content):
 	# 언어분석 API
 	# http://aiopen.etri.re.kr/
 	openApiURL = 'http://aiopen.etri.re.kr:8000/WiseNLU'
-	accessKey = '2c7d0f52c1072c135480df24263291b2f5190a96'
+	accessKey = '23dcec62-3fa0-4e1c-8bb4-266ca86ad359'
 	analysisCode = 'ner'
 	word_list = []
 	text = str(content)
@@ -173,12 +175,8 @@ def word_there(list, word):
 		if list[i]==word:
 			cnt = cnt + 1
 	return cnt
-
-def start_fireStore():
-	cred = credentials.Certificate('first-58ff5b88bb57.json')
-	firebase_admin.initialize_app(cred)
-	db = firestore.client()
-
-
+	
 if __name__ == '__main__':
 	app.run(debug=True)
+	
+	
