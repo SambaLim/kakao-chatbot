@@ -63,9 +63,12 @@ def Message():
 	
 	# user_key firestore에 저장해보기
 	user = db.collection(u'user').document(user_key)
-	user.set({
-		'state' : CONVERSATION_NORMAL
-	})
+	test = get_user_state(user)
+	if test==CONVERSATION_NORMAL:
+		user.set({
+			'state' : CONVERSATION_NORMAL
+		})
+
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
 	choice1 = random_menu(docs)
@@ -212,6 +215,12 @@ def random_menu(docs):
 	
 	return choice
 
+# User의 상태를 가져오는 함수
+def get_user_state(user):
+	get_user = user.get()
+	dict = get_user.to_dict()
+	state = str(dict['state'])
+	return state
 
 if __name__ == '__main__':
 	app.run(debug=True)
