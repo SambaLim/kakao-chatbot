@@ -55,16 +55,16 @@ def Message():
 	doc_ref.set({
 		'content' : content
 	})
-	
+
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
 	choice1 = random_restaurant(docs)
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
-	
+
 	# 리스트 비교용 단어 리스트
 	list_thanks = ["고맙", "감사"]
 	list_hello = ["안녕", "하이", "헬로"]
-	list_Nono = ["안먹", "싫"]
+	list_eat_Nono = ["안먹", "싫", "먹기싫"]
 	
 	# Message 본문
 	if content == u"시작하기":
@@ -93,7 +93,7 @@ def Message():
 			}
 		}
 	elif word_there(word_list, "점심")>=1 :
-		if word_list_there(word_list,list_Nono):
+		if word_list_there(word_list,list_eat_Nono):
 			dataSend = {
 				"message" : {
 					"text" : "하루의 중심!\n점심은 거르면 안돼요!!!"
