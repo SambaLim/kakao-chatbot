@@ -82,7 +82,7 @@ def Message():
 	elif content == u"★ 도움말":
 		dataSend = {
 			"message" : {
-				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\ngithub:https://github.com/SambaLim"
+				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
@@ -105,6 +105,9 @@ def Message():
 			}
 		}
 	elif word_list_there(word_list, list_lunch)>=1 :
+		doc_ref.set({
+			'state' : CONVERSATION_LUNCH
+		})
 		if word_list_there(word_list,list_eat_Nono):
 			dataSend = {
 				"message" : {
