@@ -62,7 +62,7 @@ def Message():
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
 	
 	# 리스트 비교용 단어 리스트
-	list_thanks = [고맙, 감사]
+	list_thanks = ["고맙", "감사"]
 	
 	# Message 본문
 	if content == u"시작하기":
