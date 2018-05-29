@@ -176,6 +176,12 @@ def Message():
 						"text" : "좋아요! 저는 점심메뉴추천, 오늘날씨 등을 알고있어요!"
 					}
 				}
+		else :
+			dataSend = {
+				"message" : {
+					"text" : "좋아요!!!"
+				}
+			}
 				
 	# 날씨를 알려주는 부분
 	elif word_there(word_list, "날씨")>=1 :
