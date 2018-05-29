@@ -143,7 +143,7 @@ def word_extract(content):
 	# 언어분석 API
 	# http://aiopen.etri.re.kr/
 	openApiURL = 'http://aiopen.etri.re.kr:8000/WiseNLU'
-	accessKey = '23dcec62-3fa0-4e1c-8bb4-266ca86ad359'
+	accessKey = # 접근 키를 넣어주어야 합니다.
 	analysisCode = 'ner'
 	word_list = []
 	text = str(content)
@@ -179,7 +179,10 @@ def word_there(list, word):
 if __name__ == '__main__':
 	app.run(debug=True)
 	
+<<<<<<< HEAD
 def start_fireStore():
 	cred = credentials.Certificate('first-58ff5b88bb57.json')
 	firebase_admin.initialize_app(cred)
 	db = firestore.client()
+=======
+>>>>>>> 2c7d0f52c1072c135480df24263291b2f5190a96
