@@ -65,7 +65,6 @@ def Message():
 	doc_ref = db.collection(u'user').document(user_key)
 	doc_ref.set({
 		'content' : content
-		'state' : CONVERSATION_NORMAL
 	})
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
