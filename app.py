@@ -37,7 +37,6 @@ def Message():
 	dataReceive = request.get_json()
 	content = dataReceive['content']
 	user_key = dataReceive['user_key']
-	start_fireStore()
 	
 	# 첫 인삿말 만들기
 	today = str(nowdate)
@@ -123,9 +122,7 @@ def Message():
 nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
 
 # 데이터베이스(firestre) 초기화
-cred = credentials.Certificate('first-58ff5b88bb57.json')
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+start_fireStore()
 
 # 지역의 날씨와 온도를 가져오는 함수	
 def get_weather(regionCode):
