@@ -37,6 +37,17 @@ def Message():
 	dataReceive = request.get_json()
 	content = dataReceive['content']
 	user_key = dataReceive['user_key']
+
+	# 리스트 비교용 단어 리스트
+	list_thanks = ["고맙", "감사"]
+	list_hello = ["안녕", "하이", "헬로"]
+	list_eat_Nono = ["안먹", "싫", "먹기싫"]
+	list_lunch = ["점심", "메뉴", "뭐먹"]
+	
+	# 상태를 정해주는 함수 만들기
+	CONVERSATION_LUNCH = "점심선택중"
+	CONVERSATION_WEATHER = "날씨대화중"
+	CONVERSATION_NORMAL = "일상대화중"
 	
 	# 첫 인삿말 만들기
 	today = str(nowdate)
@@ -54,18 +65,13 @@ def Message():
 	doc_ref = db.collection(u'user').document(user_key)
 	doc_ref.set({
 		'content' : content
+		'state' : CONVERSATION_NORMAL
 	})
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
 	choice1 = random_restaurant(docs)
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
-
-	# 리스트 비교용 단어 리스트
-	list_thanks = ["고맙", "감사"]
-	list_hello = ["안녕", "하이", "헬로"]
-	list_eat_Nono = ["안먹", "싫", "먹기싫"]
-	list_lunch = ["점심", "메뉴", "뭐먹"]
 	
 	# Message 본문
 	if content == u"★ 시작하기":
