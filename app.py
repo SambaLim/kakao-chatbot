@@ -76,7 +76,7 @@ def Message():
 	elif content == u"★ 도움말":
 		dataSend = {
 			"message" : {
-				"text" : "2018.05.03 v1.0\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다.\n.\n.\n문의:limsungho07@hanmail.net"
+				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다.\n.\n.\n.\n문의:limsungho07@hanmail.net"
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
