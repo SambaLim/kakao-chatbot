@@ -26,7 +26,7 @@ def Keyboard():
 	
 	dataSend = {
 		"type" : "buttons",
-		"buttons" : ["시작하기"]
+		"buttons" : ["★ 시작하기", "★ 도움말"]
 	}
 	return jsonify(dataSend)
 
@@ -67,10 +67,16 @@ def Message():
 	list_eat_Nono = ["안먹", "싫", "먹기싫"]
 	
 	# Message 본문
-	if content == u"시작하기":
+	if content == u"★ 시작하기":
 		dataSend = {
 			"message" : {
 				"text" : hello
+			}
+		}
+	elif content == u"★ 도움말":
+		dataSend = {
+			"message" : {
+				"text" : "2018.05.03 v1.0\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다.\n.\n.\n문의:limsungho07@hanmail.net"
 			}
 		}
 	elif word_there(word_list, "날씨")>=1 :
