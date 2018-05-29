@@ -104,6 +104,9 @@ def Message():
 			}
 		}
 	elif word_list_there(word_list, list_lunch)>=1 :
+		user.set({
+			'state' : CONVERSATION_LUNCH
+		})
 		if word_list_there(word_list, list_eat_Nono)>=1:
 			dataSend = {
 				"message" : {
