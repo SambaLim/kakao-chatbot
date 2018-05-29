@@ -45,6 +45,9 @@ def Message():
 	list_lunch = ["점심", "메뉴", "뭐먹"]
 	list_Yesyes = ["좋", "좋아"]
 	list_emo_Nono = ["안좋", "않", "안"]
+	list_what_are_you_doing = ["뭐", "하"]
+	list_mad = ["나쁘", "화나", "힘들"]
+	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
 	
 	# 상태를 정해주는 함수 만들기
 	CONVERSATION_START = "시작대화"
@@ -99,7 +102,7 @@ def Message():
 			}
 		}
 
-	# 일상 대화를 위한 인사
+	# 일상대화 인사
 	elif word_list_there(word_list, list_hello)>=1 :
 		user.set({
 			'state' : CONVERSATION_NORMAL
@@ -109,6 +112,21 @@ def Message():
 				"text" : "안녕하세요! 오늘 기분은 어떠신가요?"
 			}
 		}
+	# 일상대화 나빠, 화나, 등등 부정적인 표현 다루기
+	elif word_list_there(word_list, list_mad)>=1 :
+		dataSend = {
+			"message" : {
+				"text" : "천천히 호흡을 가다듬어봐요~ 기분이 한결 좋아질거에요!"
+			}
+		}
+	# 일상대화 나쁜말 정화하기 ^^
+	elif word_list_there(word_list, list_merong)>=1 :
+		dataSend = {
+			"message" : {
+				"text" : "바르고 고운말을 사용합시다^^\n문의: limsungho07@hanmail.net"
+			}
+		}	
+	
 	# 일상대화 감사표하기
 	elif word_list_there(word_list, list_thanks)>=1 :
 		dataSend = {
@@ -116,8 +134,15 @@ def Message():
 				"text" : "저야말로 감사합니다!\n필요한 일이 있으면 또 불려주세요!!!"
 			}
 		}
+	# 일상대화 뭐해 대답
+	elif word_list_there(word_list, list_what_are_you_doing)>=2 :
+		dataSend = {
+			"message" : {
+				"text" : "너는 지금 뭐해~ 자니~ 밖이야?\n날씨, 점심메뉴를 물어봐주세요~"
+			}
+		}
 		
-	# 점심 메뉴 추천
+	# 점심대화 메뉴 추천
 	elif word_list_there(word_list, list_lunch)>=1 :
 		user.set({
 			'state' : CONVERSATION_LUNCH
@@ -183,7 +208,7 @@ def Message():
 				}
 			}
 				
-	# 날씨를 알려주는 부분
+	# 날씨대화 날씨를 알려주는 부분
 	elif word_there(word_list, "날씨")>=1 :
 		user.set({
 			'state' : CONVERSATION_WEATHER
