@@ -105,6 +105,7 @@ def Message():
 			}
 		}
 	elif word_list_there(word_list, list_lunch)>=1 :
+		if word_list_there(word_list, list_eat_Nono)>=1:
 			dataSend = {
 				"message" : {
 					"text" : "하루의 중심!\n점심은 거르면 안돼요!!!"
