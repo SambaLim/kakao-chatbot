@@ -63,6 +63,8 @@ def Message():
 	
 	# 리스트 비교용 단어 리스트
 	list_thanks = ["고맙", "감사"]
+	list_hello = ["안녕", "하이", "헬로"]
+	list_Nono = ["안먹", "싫"]
 	
 	# Message 본문
 	if content == u"시작하기":
@@ -84,18 +86,25 @@ def Message():
 					"text" : winfo
 				}
 			}
-	elif word_there(word_list, "안녕")>=1 :
+	elif word_list_there(word_list, list_hello)>=1 :
 		dataSend = {
 			"message" : {
 				"text" : "안녕하세요! 오늘 기분은 어떠신가요?"
 			}
 		}
 	elif word_there(word_list, "점심")>=1 :
-		dataSend = {
-			"message" : {
-				"text" : lunch
+		if word_list_there(word_list,list_Nono):
+			dataSend = {
+				"message" : {
+					"text" : "하루의 중심!\n점심은 거르면 안돼요!!!"
+				}
 			}
-		}
+		else :
+			dataSend = {
+				"message" : {
+					"text" : lunch
+				}
+			}
 	elif word_list_there(word_list, list_thanks)>=1 :
 		dataSend = {
 			"message" : {
