@@ -44,7 +44,7 @@ def Message():
 	list_eat_Nono = ["안먹", "싫", "먹기싫"]
 	list_lunch = ["점심", "메뉴", "뭐먹"]
 	list_Yesyes = ["좋", "좋아"]
-	list_emo_Nono = ["안좋", "않", "안", "싫", "먹기싫"]
+	list_emo_Nono = ["안좋", "않", "안"]
 	list_what_are_you_doing = ["뭐", "하"]
 	list_mad = ["나쁘", "화나", "힘들"]
 	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
@@ -84,7 +84,7 @@ def Message():
 	docs = db.collection(u'restaurant').get()
 	choice1 = random_menu(docs)
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
-	lunch_else = "아니면" + choice1 + " 어때요?"
+	else_lunch = "아니면" + choice1 + " 어때요?"
 	
 	# Message 본문
 	# 초기 버튼 시작하기, 도움말 '★'로 구분
