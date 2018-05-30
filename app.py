@@ -44,7 +44,7 @@ def Message():
 	list_eat_Nono = ["안먹", "싫", "먹기싫"]
 	list_lunch = ["점심", "메뉴", "뭐먹"]
 	list_Yesyes = ["좋", "좋아"]
-	list_emo_Nono = ["안좋", "않", "안"]
+	list_emo_Nono = ["안좋", "않", "안", "싫", "먹기싫"]
 	list_what_are_you_doing = ["뭐", "하"]
 	list_mad = ["나쁘", "화나", "힘들"]
 	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
