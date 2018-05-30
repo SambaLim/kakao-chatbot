@@ -337,7 +337,7 @@ def first_user(db, user_key):
 	
 	for i in range(0, len(user_list)):
 		if user_list[i] == user_key:
-			cnt++
+			cnt = cnt + 1
 	
 	return cnt
 
