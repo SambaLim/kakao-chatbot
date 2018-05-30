@@ -330,7 +330,7 @@ def get_user_state(user):
 def first_user(db, user_key):
 	user_list = []
 	cnt = 0
-	users = db.collection(u'user').get()
+	docs = db.collection(u'user').get()
 	for doc in docs:
 		string = '{}'.format(doc.id)
 		user_list.append(string)
