@@ -69,11 +69,16 @@ def Message():
 	
 	# user_key firestore에 저장해보기
 	user = db.collection(u'user').document(user_key)
-	user_state = get_user_state(user)
-	if user_state==CONVERSATION_NORMAL:
+	if first_user(db, user_key) == 0 :
 		user.set({
-			'state' : CONVERSATION_NORMAL
+			'state' : CONVERSATION_START
 		})
+	else :
+		user_state = get_user_state(user)
+		uset.set({
+			'state' : user_state
+		})
+	
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
@@ -320,6 +325,21 @@ def get_user_state(user):
 	dict = get_user.to_dict()
 	state = str(dict['state'])
 	return state
+	
+# 처음으로 들어오는 User인지를 확인하는 함수
+def first_user(db, user_key):
+	user_list = []
+	cnt = 0
+	users = db.collection(u'user').get()
+	for doc in docs:
+		string = '{}'.format(doc.id)
+		user_list.append(string)
+	
+	for i in range(0, len(user_list)):
+		if user_list[i] == user_key:
+			cnt++
+	
+	return cnt
 
 if __name__ == '__main__':
 	app.run(debug=True)
