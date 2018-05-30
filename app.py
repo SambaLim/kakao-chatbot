@@ -42,7 +42,7 @@ def Message():
 	list_thanks = ["고맙", "감사"]
 	list_hello = ["안녕", "하이", "헬로"]
 	list_eat_Nono = ["안먹", "싫", "먹기싫"]
-	list_lunch = ["점심", "메뉴", "뭐먹"]
+	list_lunch = ["점심", "메뉴", "뭐먹", "뭐먹을까"]
 	list_Yesyes = ["좋", "좋아"]
 	list_emo_Nono = ["안좋", "않", "안"]
 	list_what_are_you_doing = ["뭐", "하"]
@@ -210,6 +210,20 @@ def Message():
 			dataSend = {
 				"message" : {
 					"text" : "좋아요!!!"
+				}
+			}
+	# 동음이의어 구분하기 "싫어"
+	elif word_list_there(word_list, list_eat_Nono)>=1:
+		if user_state==CONVERSATION_LUNCH :
+			dataSend = {
+				"message" : {
+					"text" : else_lunch
+				}
+			}
+		else :
+			dataSend = {
+				"message" : {
+					"text" : "싫으면 시집가세요~"
 				}
 			}
 				
