@@ -75,7 +75,7 @@ def Message():
 		})
 	else :
 		user_state = get_user_state(user)
-		uset.set({
+		user.set({
 			'state' : user_state
 		})
 	
