@@ -117,7 +117,7 @@ def Message():
 	hello = "20" + today[0:2] + "년 " + today[2:4] + "월 " + today[4:6] + "일" + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n오늘의 날씨를 알려드릴 수 있고, 점심메뉴를 추천해드릴 수 있어요!" 
 	
 	# 날씨 정보 출력하기 (지역코드)
-	regionCode = Ct2Rc(region_dict, region_key_list, word_list)
+	regionCode, ck = Ct2Rc(region_dict, region_key_list, word_list)
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 	
@@ -148,7 +148,7 @@ def Message():
 		})
 		dataSend = {
 			"message" : {
-				"text" : "지역을 입력해주세요!\n(띄어쓰기가 중요합니다.) \n광역시, 특별시 \nex.○○시 ○○구 ○○동\n북도, 남도 또는 도\nex.충청북도 혹은 충북등"
+				"text" : "지역을 입력해주세요!\n(띄어쓰기가 중요합니다.) \n.\n.\n광역시, 특별시 \nex.○○시 ○○구 ○○동\n북도, 남도 또는 도\nex.충청북도 혹은 충북"
 			}
 		}
 	elif content == u"★ 정보":
@@ -159,6 +159,33 @@ def Message():
 			}
 		}
 
+	# 지역설정 지역입력받기
+	if user_state==CONVERSATION_SETREGION:
+		new_regionCode, ck = Ct2Rc(region_dict, region_key_list, word_list)
+		user.set({
+			'state' : user_state
+			, 'regionCode' : new_regionCode
+		})
+		if ck == 0 :
+			dataSend = {
+				"message" : {
+					"text" : "지역설정에 들어가 지역을 다시 입력해주세요!"
+				}
+			}
+		elif ck ==1 :
+			dataSend = {
+				"message" : {
+					"text" : "지역이 설정되었습니다. \n날씨 어때?, 날씨 알려줘! 와 같이 날씨를 물어보면 날씨에 대한 대답을 들을 수 있습니다."
+				}
+			}
+		
+		else :
+			dataSend = {
+				"message" : {
+					"text" : "지역설정에 실패하였습니다!"
+				}
+			}
+	
 	# 일상대화 인사
 	elif word_list_there(word_list, list_hello)>=1 :
 		user.set({
@@ -448,10 +475,10 @@ def Ct2Rc(region_dict, key_list, word_list):
 	if cnt==0:
 		# 지역코드가 잘못 입력된 경우 서울의 날씨
 		regionCode = '09140550'
-		return str(regionCode)
+		return str(regionCode), 0
 	else :
 		regionCode = region_dict[region]
-		return str(regionCode)
+		return str(regionCode), 1
 
 # 초기 데이터베이슷 설정해주는 함수
 def first_dbSet(db, user_key, user):
