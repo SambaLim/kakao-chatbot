@@ -165,7 +165,7 @@ def Message():
 			},
 			"keyboard":{
 				"type":"buttons",
-				"buttons":["★ 일반대화", "★ 점심대화", "★ 날씨대화"]
+				"buttons":["★ 일반대화", "★ 점심대화", "★ 날씨대화", "★ 추가요청"]
 			}
 		}
 	elif content == u"★ 정보":
@@ -204,6 +204,17 @@ def Message():
 		dataSend = {
 			"message" : {
 				"text" : "\'오늘 점심뭐먹을까\'의 날씨대화는 날씨에 대한 의문문으로 시작합니다.\n각 시/도의 날씨를 물어볼 수 있습니다. \n(시/도 입력 후 띄어쓰기를 해주어야 합니다.)\n단어 목록 : 각 시/도\n\n\n[가상대화 스크립트]\nUser: 오늘 제주 날씨 어때?\nBot: 오늘 날씨는 맑음 이고,\n온도는 21℃ 네요.]\nUser: 오늘 날씨 어때?\nBot: 오늘 날씨는 흐림 이고,\n온도는 18℃ 네요."
+			},
+			"keyboard":{
+				"type":"buttons",
+				"buttons":["★ 시작하기", "★ 도움말", "★ 정보"]
+			}
+		}
+	elif content == u"★ 추가요청":
+		first_dbSet(db, user_key, user)
+		dataSend = {
+			"message" : {
+				"text" : "추가 접수가 완료되었습니다.\n관심을 가져주셔서 감사합니다 ^^"
 			},
 			"keyboard":{
 				"type":"buttons",
