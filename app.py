@@ -133,7 +133,7 @@ def Message():
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
-	choice1 = random_menu(docs)
+	choice1, menu_number = random_menu(docs)
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
 	else_lunch = "아니면" + choice1 + " 어때요?"
 	
@@ -181,10 +181,7 @@ def Message():
 		first_dbSet(db, user_key, user)
 		dataSend = {
 			"message" : {
-				"text" : "\'오늘 점심뭐먹을까\'의 일반대화는 인삿말로 시작합니다.\n단어 목록 : \n안녕, 하이, 헬로, \n좋다, 나쁘다, 화나다, 힘들다. \n메롱, 바보, 멍청이, 멍충이\n고맙다, 감사하다."
-			},
-			"message" : {
-				"text" : "[가상대화 스크립트]\nUser:안녕^^\nBot:안녕하세요! 오늘 기분은 어떠신가요?\nUser:나빠 ㅠ_ㅠ\nBot:천천히 호흡을 가다듬어봐요~ 기분이 한결 좋아질거에요!"
+				"text" : "\'오늘 점심뭐먹을까\'의 일반대화는 인삿말로 시작합니다.\n단어 목록 : \n안녕, 하이, 헬로, \n좋다, 나쁘다, 화나다, 힘들다. \n메롱, 바보, 멍청이, 멍충이\n고맙다, 감사하다.\n\n[가상대화 스크립트]\nUser:안녕^^\nBot:안녕하세요! 오늘 기분은 어떠신가요?\nUser:나빠 ㅠ_ㅠ\nBot:천천히 호흡을 가다듬어봐요~ 기분이 한결 좋아질거에요!"
 			},
 			"keyboard":{
 				"type":"buttons",
@@ -195,10 +192,7 @@ def Message():
 		first_dbSet(db, user_key, user)
 		dataSend = {
 			"message" : {
-				"text" : "\'오늘 점심뭐먹을까\'의 점심대화는 점심에 대한 의문문으로 시작합니다.\n단어 목록 : \n점심, 메뉴, 먹다\nㅇㅇ, 콜, 가자, 좋아, 싫어(부정어를 이해할 수 있도록 해놓았습니다.\nex.안먹어)"
-			},
-			"message" : {
-				"text" : "[가상대화 스크립트]\nUser:뭐먹을까?\nBot:오늘 점심은 돈까스 어때요?\nUser:싫어\nBot:아니면 국밥 어때요?\nUser:ㅇㅇ\nBot:가시죠!!!"
+				"text" : "\'오늘 점심뭐먹을까\'의 점심대화는 점심에 대한 의문문으로 시작합니다.\n단어 목록 : \n점심, 메뉴, 먹다\nㅇㅇ, 콜, 가자, 좋아, 싫어(부정어를 이해할 수 있도록 해놓았습니다.\nex.안먹어)\n\n[가상대화 스크립트]\nUser:뭐먹을까?\nBot:오늘 점심은 돈까스 어때요?\nUser:싫어\nBot:아니면 국밥 어때요?\nUser:ㅇㅇ\nBot:가시죠!!!"
 			},
 			"keyboard":{
 				"type":"buttons",
@@ -209,10 +203,7 @@ def Message():
 		first_dbSet(db, user_key, user)
 		dataSend = {
 			"message" : {
-				"text" : "\'오늘 점심뭐먹을까\'의 날씨대화는 날씨에 대한 의문문으로 시작합니다.\n각 시/도의 날씨를 물어볼 수 있습니다. \n(시/도 입력 후 띄어쓰기를 해주어야 합니다.)\n단어 목록 : 각 시/도\n"
-			},
-			"message" : {
-				"text" : "[가상대화 스크립트]\nUser:오늘 제주 날씨어때?\nBot:오늘 날씨는 맑음 이고,\n온도는 21℃ 네요."
+				"text" : "\'오늘 점심뭐먹을까\'의 날씨대화는 날씨에 대한 의문문으로 시작합니다.\n각 시/도의 날씨를 물어볼 수 있습니다. \n(시/도 입력 후 띄어쓰기를 해주어야 합니다.)\n단어 목록 : 각 시/도\n\n\n[가상대화 스크립트]\nUser:오늘 제주 날씨어때?\nBot:오늘 날씨는 맑음 이고,\n온도는 21℃ 네요."
 			},
 			"keyboard":{
 				"type":"buttons",
@@ -510,7 +501,7 @@ def random_menu(docs):
 	i = random.randint(0, len(restaurant_list)-1)
 	choice = restaurant_list[i]
 	
-	return choice
+	return choice, i
 
 # User의 상태를 가져오는 함수
 def get_user_state(user):
