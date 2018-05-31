@@ -157,14 +157,17 @@ def Message():
 				"text" : "지역을 입력해주세요!\n(띄어쓰기가 중요합니다.) \n.\n.\n광역시, 특별시 \nex.○○시 ○○구 ○○동\n북도, 남도 또는 도\nex.충청북도 혹은 충북"
 			}
 		}
-	elif content == u"★  도움말":
+	elif content == u"★ 도움말":
 		first_dbSet(db, user_key, user)
 		dataSend = {
 			"message" : {
 				"text" : "도움말 입니다.\n도움말에서는 간단한 스크립트와 \"오늘 점심뭐먹을까\"가 이해할 수 있는 언어들에 대해 설명합니다."
+			},
+			"keyboard":{
+				"type":"buttons",
+				"buttons":["일반대화"]
 			}
 		}
-	
 	elif content == u"★ 정보":
 		first_dbSet(db, user_key, user)
 		dataSend = {
