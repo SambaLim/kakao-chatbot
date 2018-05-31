@@ -453,10 +453,10 @@ def Ct2Rc(region_dict, key_list, word_list):
 	if cnt==0:
 		# 지역코드가 잘못 입력된 경우 서울의 날씨
 		regionCode = '09140550'
-		return region
+		return regionCode
 	else :
 		regionCode = region_dict[region]
-		return region
+		return regionCode
 
 	
 if __name__ == '__main__':
