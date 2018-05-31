@@ -25,7 +25,7 @@ CONVERSATION_START = "시작대화"
 CONVERSATION_NORMAL = "일상대화"
 CONVERSATION_LUNCH = "점심대화"
 CONVERSATION_WEATHER = "날씨대화"
-CONVERSATION_SETREGION = "지역정하기"
+CONVERSATION_SETREGION = "지역설정"
 	
 # 지역코드  dict
 region_dict = {
@@ -79,7 +79,7 @@ def Keyboard():
 	
 	dataSend = {
 		"type" : "buttons",
-		"buttons" : ["★ 시작하기", "★ 정보"]
+		"buttons" : ["★ 시작하기", "★ 지역설정", "★ 정보"]
 	}
 	return jsonify(dataSend)
 
@@ -121,7 +121,7 @@ def Message():
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 	
-	# user_key firestore에 저장해보기
+	# firestore User 초기설정
 	user = db.collection(u'user').document(user_key)
 	user_state, user_regionCode = first_dbSet(db, user_key, user)
 
@@ -138,6 +138,17 @@ def Message():
 		dataSend = {
 			"message" : {
 				"text" : hello
+			}
+		}
+	elif content == u"★ 지역설정":
+		first_dbSet(db, user_key, user)
+		user.set({
+			'state' : CONVERSATION_SETREGION
+			, 'regionCode' : user_regionCode
+		})
+		dataSend = {
+			"message" : {
+				"text" : "지역을 입력해주세요!\n(띄어쓰기가 중요합니다.) \n광역시, 특별시 \nex.○○시 ○○구 ○○동\n북도, 남도 또는 도\nex.충청북도 혹은 충북등"
 			}
 		}
 	elif content == u"★ 정보":
