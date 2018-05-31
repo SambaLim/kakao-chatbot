@@ -143,10 +143,18 @@ def Message():
 	# Message 본문
 	# 초기 버튼 시작하기, 도움말 '★'로 구분
 	if content == u"★ 시작하기":
-		user.set({
-			'state' : CONVERSATION_START
-			, 'regionCode' : user_regionCode
-		})
+		if first_user(db, user_key) == 0 :
+			user.set({
+				'state' : CONVERSATION_START
+				, 'regionCode' : '11200510'
+			})
+		else :
+			user_state = get_user_state(user)
+			user_regionCode = get_user_regionCode(user)
+			user.set({
+				'state' : user_state
+				, 'regionCode' : user_regionCode
+			})
 		dataSend = {
 			"message" : {
 				"text" : hello
