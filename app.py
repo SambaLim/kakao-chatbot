@@ -55,7 +55,10 @@ def Message():
 	CONVERSATION_NORMAL = "일상대화"
 	CONVERSATION_LUNCH = "점심대화"
 	CONVERSATION_WEATHER = "날씨대화"
-
+	
+	# 형태소 분석한 list 만들기
+	word_list = word_extract(content)
+	
 	# 지역코드  dict
 	region_dict = {
 			# 특별시, 광역시
@@ -113,9 +116,6 @@ def Message():
 	regionCode = Ct2Rc(region_dict, region_key_list, word_list)
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
-	
-	# 형태소 분석이 됐는지 확인하기
-	word_list = word_extract(content)
 	
 	# user_key firestore에 저장해보기
 	user = db.collection(u'user').document(user_key)
