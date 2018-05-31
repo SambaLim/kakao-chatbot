@@ -7,6 +7,9 @@ import urllib3
 import json
 import random
 
+# 다른 파일에서 가져오기
+import GregionCode
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -48,6 +51,7 @@ def Message():
 	list_what_are_you_doing = ["뭐", "하"]
 	list_mad = ["나쁘", "화나", "힘들"]
 	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
+	list_LetsGo = ["콜", "가자"]
 	
 	# 상태를 정해주는 함수 만들기
 	CONVERSATION_START = "시작대화"
@@ -86,6 +90,9 @@ def Message():
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
 	else_lunch = "아니면" + choice1 + " 어때요?"
 	
+	# 지역코드가 가져와지는지 확인해보기
+	test_regionCode = str(GregionCode.get_region_code('인천'))
+	
 	# Message 본문
 	# 초기 버튼 시작하기, 도움말 '★'로 구분
 	if content == u"★ 시작하기":
@@ -104,6 +111,14 @@ def Message():
 		dataSend = {
 			"message" : {
 				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
+			}
+		}
+		
+	# regionCode 테스트
+	elif content == "지역코드":
+		dataSend = {
+			"message" : {
+				"text" : test_regionCode
 			}
 		}
 
@@ -162,6 +177,27 @@ def Message():
 			dataSend = {
 				"message" : {
 					"text" : lunch
+				}
+			}
+	# 메뉴 긍정에 대한 처리 늘리기
+	elif word_list_there(word_list, list_LetsGo)>=1 : 
+		if user_state==CONVERSATION_LUNCH :
+			if word_list_there(word_list, list_emo_Nono)>=1:
+				dataSend = {
+					"message" : {
+						"text" : else_lunch
+					}
+				}
+			else : 
+				dataSend = {
+					"message" : {
+						"text" : "좋아요!"
+					}
+				}
+		else :
+			dataSend = {
+				"message" : {
+					"text" : "Let's Go!!!"
 				}
 			}
 	
@@ -242,6 +278,13 @@ def Message():
 			dataSend = {
 				"message" : {
 					"text" : winfo
+				}
+			}
+	elif user_state==CONVERSATION_WEATHER :
+		if word_there(word_list, "내일")>=1:
+			dataSend = {
+				"message" : {
+					"text" : "저는 오늘의 날씨밖에 알 수 없어요 ㅠ_ㅠ"
 				}
 			}
 							
@@ -355,5 +398,6 @@ def first_user(db, user_key):
 	
 	return cnt
 
+	
 if __name__ == '__main__':
 	app.run(debug=True)
