@@ -108,11 +108,11 @@ def Message():
 		}
 	region_key_list = list(region_dict.keys())
 	
-	# 첫 인삿말 만들기
+	# 첫 인삿말 만들기 
 	today = str(nowdate)
 	hello = "20" + today[0:2] + "년 " + today[2:4] + "월 " + today[4:6] + "일" + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n오늘의 날씨를 알려드릴 수 있고, 점심메뉴를 추천해드릴 수 있어요!" 
 	
-	# 날씨 정보 출력하기
+	# 날씨 정보 출력하기 (지역코드)
 	regionCode = Ct2Rc(region_dict, region_key_list, word_list)
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
@@ -462,3 +462,4 @@ def Ct2Rc(region_dict, key_list, word_list):
 	
 if __name__ == '__main__':
 	app.run(debug=True)
+	
