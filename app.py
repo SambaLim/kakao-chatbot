@@ -33,7 +33,7 @@ CONVERSATION_WEATHER = "날씨대화"
 CONVERSATION_SETREGION = "지역설정"
 
 # 키보드 세팅번호를 정해줌 (0. 시작화면, 1.도움말)
-KEYBOARD_SETTING_NUM = 0
+KEYBOARD_SETTING_NUM = '0'
 	
 # 지역코드  dict
 region_dict = {
@@ -84,17 +84,17 @@ region_dict = {
 # 입력을 받는 keyboard 부분
 @app.route('/keyboard')
 def Keyboard():
-	if KEYBOARD_SETTING_NUM == 0:
+	if KEYBOARD_SETTING_NUM == '0':
 		dataSend = {
 			"type" : "buttons",
 			"buttons" : ["★ 시작하기", "★ 지역설정", "★ 도움말", "★ 정보"]
 			}
-	elif KEYBOARD_SETTING_NUM == 1:
+	elif KEYBOARD_SETTING_NUM == '1':
 		dataSend = {
 			"type" : "buttons",
 			"buttons" : ["★ 일상대화", "★ 점심대화", "★ 날씨대화", "★ 기타"]
 			}
-			KEYBOARD_SETTING_NUM == 0
+			KEYBOARD_SETTING_NUM == '0'
 	
 
 	return jsonify(dataSend)
@@ -170,7 +170,7 @@ def Message():
 		}
 	elif content == u"★  도움말""
 		first_dbSet(db, user_key, user)
-		KEYBOARD_SETTING_NUM = 1
+		KEYBOARD_SETTING_NUM = '1'
 		dataSend = {
 			"message" : {
 				"text" : "도움말 입니다.\n도움말에서는 간단한 스크립트와 \"오늘 점심뭐먹을까\"가 이해할 수 있는 언어들에 대해 설명합니다."
