@@ -102,10 +102,10 @@ def Message():
 	# 리스트 비교용 단어 리스트
 	list_thanks = ["고맙", "감사"]
 	list_hello = ["안녕", "하이", "헬로"]
-	list_eat_Nono = ["안먹", "싫", "먹기싫"]
+	list_eat_Nono = ["안먹", "싫", "먹기싫", "ㄴㄴ"]
 	list_lunch = ["점심", "메뉴", "뭐먹", "뭐먹을까"]
-	list_Yesyes = ["좋", "좋아"]
-	list_emo_Nono = ["안좋", "않", "안"]
+	list_Yesyes = ["좋", "좋아", "응", "네", "ㅇㅇ"]
+	list_emo_Nono = ["안좋", "않", "안", "안먹"]
 	list_what_are_you_doing = ["뭐", "하"]
 	list_mad = ["나쁘", "화나", "힘들"]
 	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
@@ -124,7 +124,7 @@ def Message():
 	
 	# 첫 인삿말 만들기 
 	today = str(nowdate)
-	hello = "20" + today[0:2] + "년 " + today[2:4] + "월 " + today[4:6] + "일" + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n오늘의 날씨를 알려드릴 수 있고, 점심메뉴를 추천해드릴 수 있어요!" 
+	hello = "20" + today[0:2] + "년 " + today[2:4] + "월 " + today[4:6] + "일" + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n오늘의 날씨를 알려드릴 수 있고, 점심메뉴를 추천해드릴 수 있어요! 자세한 기능을 알고싶으시다면 최초 메뉴에서 \'★ 도움말\'" 
 	
 	# 날씨 정보 출력하기 (지역코드)
 	regionCode = user_regionCode
@@ -161,11 +161,11 @@ def Message():
 		first_dbSet(db, user_key, user)
 		dataSend = {
 			"message" : {
-				"text" : "도움말 입니다.\n도움말에서는 간단한 스크립트와 \"오늘 점심뭐먹을까\"가 이해할 수 있는 언어들에 대해 설명합니다."
+				"text" : "도움말에서는 간단한 스크립트와 \'오늘 점심뭐먹을까\'가 이해할 수 있는 언어들에 대해 설명합니다.\n각 스크립트의 Bot은 \'오늘 점심뭐먹을까\'를 User는 \'사용자\'를 의미합니다."
 			},
 			"keyboard":{
 				"type":"buttons",
-				"buttons":["일반대화"]
+				"buttons":["★ 일반대화", "★ 점심대화", "★ 날씨대화"]
 			}
 		}
 	elif content == u"★ 정보":
@@ -175,6 +175,39 @@ def Message():
 				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
 			}
 		}
+	
+	# 도움말 설명 작성하기
+	elif content == u"★ 일반대화":
+		first_dbSet(db, user_key, user)
+		dataSend = {
+			"message" : {
+				"text" : "\'오늘 점심뭐먹을까\'의 일반대화는 인삿말로 시작합니다.\n단어 목록 : \n안녕, 하이, 헬로, \n좋다, 나쁘다, 화나다, 힘들다. \n메롱, 바보, 멍청이, 멍충이\n고맙다, 감사하다."
+			},
+			"message" : {
+				"text" : "[가상대화 스크립트]\nUser:안녕^^\nBot:안녕하세요! 오늘 기분은 어떠신가요?\nUser:나빠 ㅠ_ㅠ\nBot:천천히 호흡을 가다듬어봐요~ 기분이 한결 좋아질거에요!"
+			}
+		}
+	elif content == u"★ 점심대화":
+		first_dbSet(db, user_key, user)
+		dataSend = {
+			"message" : {
+				"text" : "\'오늘 점심뭐먹을까\'의 점심대화는 점심에 대한 의문문으로 시작합니다.\n단어 목록 : \n점심, 메뉴, 먹다\nㅇㅇ, 콜, 가자, 좋아, 싫어(부정어를 이해할 수 있도록 해놓았습니다.\nex.안먹어)"
+			},
+			"message" : {
+				"text" : "[가상대화 스크립트]\nUser:뭐먹을까?\nBot:오늘 점심은 돈까스 어때요?\nUser:싫어\nBot:아니면 국밥 어때요?\nUser:ㅇㅇ\nBot:가시죠!!!"
+			}
+		}
+	elif content == u"★ 날씨대화":
+		first_dbSet(db, user_key, user)
+		dataSend = {
+			"message" : {
+				"text" : "\'오늘 점심뭐먹을까\'의 날씨대화는 날씨에 대한 의문문으로 시작합니다.\n각 시/도의 날씨를 물어볼 수 있습니다. \n(시/도 입력 후 띄어쓰기를 해주어야 합니다.)\n단어 목록 : 각 시/도\n"
+			},
+			"message" : {
+				"text" : "[가상대화 스크립트]\nUser:오늘 제주 날씨어때?\nBot:오늘 날씨는 맑음 이고,\n온도는 21℃ 네요."
+			}
+		}
+	
 	# 지역설정 지역입력받기
 	elif user_state==CONVERSATION_SETREGION:
 		new_regionCode, ck = Ct2Rc(region_dict, region_key_list, word_list)
@@ -195,7 +228,7 @@ def Message():
 		elif ck ==1 :
 			dataSend = {
 				"message" : {
-					"text" : "지역이 설정되었습니다. \n\"날씨 어때?\", \"날씨 알려줘!\" 와 같이 날씨를 물어보면 날씨에 대한 대답을 들을 수 있습니다."
+					"text" : "지역이 설정되었습니다. \n\"날씨 어때?\"와 같이 날씨를 물어보면 날씨에 대한 대답을 들을 수 있습니다."
 				}
 			}
 			user.set({
