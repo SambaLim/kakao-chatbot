@@ -338,6 +338,7 @@ def Message():
 				"text" : "무슨말인지 잘 모르겠어요 ㅠ_ㅠ"
 			}
 		}
+		
 	return jsonify(dataSend)
 
 # 현재 날짜
