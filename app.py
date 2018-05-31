@@ -471,7 +471,7 @@ def word_extract(content):
 	# 언어분석 API
 	# http://aiopen.etri.re.kr/
 	openApiURL = 'http://aiopen.etri.re.kr:8000/WiseNLU'
-	accessKey = '23dcec62-3fa0-4e1c-8bb4-266ca86ad359'
+	accessKey = 'API키를 입력하시면 됩니다.'
 	analysisCode = 'ner'
 	word_list = []
 	text = str(content)
@@ -591,4 +591,7 @@ def first_dbSet(db, user_key, user):
 	
 if __name__ == '__main__':
 	app.run(debug=True)
+<<<<<<< HEAD
 	
+=======
+>>>>>>> eca269ba0f368b626911cb743c5053a6e3502507
