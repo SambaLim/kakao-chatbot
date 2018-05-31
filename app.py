@@ -20,6 +20,59 @@ def hello_world():
 	return 'Hello World!'
 '''
 
+# 상태를 정해주는 상수 만들기
+CONVERSATION_START = "시작대화"
+CONVERSATION_NORMAL = "일상대화"
+CONVERSATION_LUNCH = "점심대화"
+CONVERSATION_WEATHER = "날씨대화"
+CONVERSATION_SETREGION = "지역정하기"
+	
+# 지역코드  dict
+region_dict = {
+		# 특별시, 광역시
+		'인천':'11200510',
+		'인천광역시':'11200510',
+		'인천시':'11200510',
+		'서울':'09140550',
+		'서울특별시':'09140550',
+		'서울시':'09140550',
+		'대전':'07170630',
+		'대전광역시':'07170630',
+		'대전시':'07170630',
+		'대구':'06110517',
+		'대구광역시':'06110517',
+		'대구시':'06110517',
+		'부산':'08470690',
+		'부산광역시':'08470690',
+		'부산시':'08470690',
+		'광주':'05140120',
+		'광주광역시':'05140120',
+		'광주시':'05140120',
+		'울산':'10140510',
+		'울산광역시':'10140510',
+		'울산시':'10140510',
+		'세종':'17110250',
+		
+		# 도
+		'경기':'02830410',
+		'경기도':'02830410',
+		'강원':'01810350',
+		'강원도':'01810350',
+		'충청북도':'16760370',
+		'충북':'16760370',
+		'충청남도':'15810320',
+		'충남':'15810320',
+		'전라북도':'13750360',
+		'전북':'13750360',
+		'전라남도':'12790330',
+		'전남':'12790330',
+		'경상북도':'04170400',
+		'경북':'04170400',
+		'경상남도':'03720415',
+		'경남':'03720415',
+		'제주도':'14110630',
+		'제주':'14110630',
+		}
 # 입력을 받는 keyboard 부분
 @app.route('/keyboard')
 def Keyboard():
@@ -37,6 +90,9 @@ def Message():
 	dataReceive = request.get_json()
 	content = dataReceive['content']
 	user_key = dataReceive['user_key']
+	
+	# 현재 날짜
+	nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
 
 	# 리스트 비교용 단어 리스트
 	list_thanks = ["고맙", "감사"]
@@ -50,64 +106,11 @@ def Message():
 	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
 	list_LetsGo = ["콜", "가자"]
 	
-	# 상태를 정해주는 함수 만들기
-	CONVERSATION_START = "시작대화"
-	CONVERSATION_NORMAL = "일상대화"
-	CONVERSATION_LUNCH = "점심대화"
-	CONVERSATION_WEATHER = "날씨대화"
-	CONVERSATION_SETREGION = "지역정하기"
-	
+	# 지역 list
+	region_key_list = list(region_dict.keys())
+
 	# 형태소 분석한 list 만들기
 	word_list = word_extract(content)
-	
-	# 지역코드  dict
-	region_dict = {
-			# 특별시, 광역시
-			'인천':'11200510',
-			'인천광역시':'11200510',
-			'인천시':'11200510',
-			'서울':'09140550',
-			'서울특별시':'09140550',
-			'서울시':'09140550',
-			'대전':'07170630',
-			'대전광역시':'07170630',
-			'대전시':'07170630',
-			'대구':'06110517',
-			'대구광역시':'06110517',
-			'대구시':'06110517',
-			'부산':'08470690',
-			'부산광역시':'08470690',
-			'부산시':'08470690',
-			'광주':'05140120',
-			'광주광역시':'05140120',
-			'광주시':'05140120',
-			'울산':'10140510',
-			'울산광역시':'10140510',
-			'울산시':'10140510',
-			'세종':'17110250',
-			
-			# 도
-			'경기':'02830410',
-			'경기도':'02830410',
-			'강원':'01810350',
-			'강원도':'01810350',
-			'충청북도':'16760370',
-			'충북':'16760370',
-			'충청남도':'15810320',
-			'충남':'15810320',
-			'전라북도':'13750360',
-			'전북':'13750360',
-			'전라남도':'12790330',
-			'전남':'12790330',
-			'경상북도':'04170400',
-			'경북':'04170400',
-			'경상남도':'03720415',
-			'경남':'03720415',
-			'제주도':'14110630',
-			'제주':'14110630',
-
-		}
-	region_key_list = list(region_dict.keys())
 	
 	# 첫 인삿말 만들기 
 	today = str(nowdate)
@@ -119,20 +122,7 @@ def Message():
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 	
 	# user_key firestore에 저장해보기
-	user = db.collection(u'user').document(user_key)
-	if first_user(db, user_key) == 0 :
-		user.set({
-			'state' : CONVERSATION_START
-			, 'regionCode' : '11200510'
-		})
-	else :
-		user_state = get_user_state(user)
-		user_regionCode = get_user_regionCode(user)
-		user.set({
-			'state' : user_state
-			, 'regionCode' : user_regionCode
-		})
-	
+	user = db.collection(u'user').document(user_key)	
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
@@ -143,28 +133,14 @@ def Message():
 	# Message 본문
 	# 초기 버튼 시작하기, 도움말 '★'로 구분
 	if content == u"★ 시작하기":
-		if first_user(db, user_key) == 0 :
-			user.set({
-				'state' : CONVERSATION_START
-				, 'regionCode' : '11200510'
-			})
-		else :
-			user_state = get_user_state(user)
-			user_regionCode = get_user_regionCode(user)
-			user.set({
-				'state' : user_state
-				, 'regionCode' : user_regionCode
-			})
+		first_dbSet(db, user_key, user)
 		dataSend = {
 			"message" : {
 				"text" : hello
 			}
 		}
 	elif content == u"★ 정보":
-		user.set({
-			'state' : CONVERSATION_START
-			, 'regionCode' : user_regionCode
-		})
+		first_dbSet(db, user_key, user)
 		dataSend = {
 			"message" : {
 				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
@@ -343,9 +319,6 @@ def Message():
 		
 	return jsonify(dataSend)
 
-# 현재 날짜
-nowdate = time.strftime('%y%m%d', time.localtime(time.time()))
-
 # 데이터베이스(firestre) 초기화
 cred = credentials.Certificate('first-58ff5b88bb57.json')
 firebase_admin.initialize_app(cred)
@@ -468,6 +441,20 @@ def Ct2Rc(region_dict, key_list, word_list):
 		regionCode = region_dict[region]
 		return str(regionCode)
 
+# 초기 데이터베이슷 설정해주는 함수
+def first_dbSet(db, user_key, user):
+	if first_user(db, user_key) == 0 :
+		user.set({
+			'state' : CONVERSATION_START
+			, 'regionCode' : '11200510'
+		})
+	else :
+		user_state = get_user_state(user)
+		user_regionCode = get_user_regionCode(user)
+		user.set({
+			'state' : user_state
+			, 'regionCode' : user_regionCode
+		})
 	
 if __name__ == '__main__':
 	app.run(debug=True)
