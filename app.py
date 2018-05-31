@@ -7,9 +7,6 @@ import urllib3
 import json
 import random
 
-# 다른 파일에서 가져오기
-import GregionCode
-
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -90,9 +87,6 @@ def Message():
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
 	else_lunch = "아니면" + choice1 + " 어때요?"
 	
-	# 지역코드가 가져와지는지 확인해보기
-	test_regionCode = str(GregionCode.get_region_code('인천'))
-	
 	# Message 본문
 	# 초기 버튼 시작하기, 도움말 '★'로 구분
 	if content == u"★ 시작하기":
@@ -118,7 +112,7 @@ def Message():
 	elif content == "지역코드":
 		dataSend = {
 			"message" : {
-				"text" : test_regionCode
+				"text" : "지역코드"
 			}
 		}
 
