@@ -55,13 +55,62 @@ def Message():
 	CONVERSATION_NORMAL = "일상대화"
 	CONVERSATION_LUNCH = "점심대화"
 	CONVERSATION_WEATHER = "날씨대화"
+
+	# 지역코드  dict
+	region_dict = {
+			# 특별시, 광역시
+			'인천':11200510,
+			'인천광역시':11200510,
+			'인천시':11200510,
+			'서울':09140550,
+			'서울특별시':09140550,
+			'서울시':09140550,
+			'대전':07170630,
+			'대전광역시':07170630,
+			'대전시':07170630,
+			'대구':06110517,
+			'대구광역시':06110517,
+			'대구시':06110517,
+			'부산':08470690,
+			'부산광역시':08470690,
+			'부산시':08470690,
+			'광주':05140120,
+			'광주광역시':05140120,
+			'광주시':05140120,
+			'울산':10140510,
+			'울산광역시':10140510,
+			'울산시':10140510,
+			'세종':17110250,
+			
+			# 도
+			'경기':02830410,
+			'경기도':02830410,
+			'강원':01810350,
+			'강원도':01810350,
+			'충청북도':16760370,
+			'충북':16760370,
+			'충청남도':15810320,
+			'충남':15810320,
+			'전라북도':13750360,
+			'전북':13750360,
+			'전라남도':12790330,
+			'전남':12790330,
+			'경상북도':04170400,
+			'경북':04170400,
+			'경상남도':03720415,
+			'경남':03720415,
+			'제주도':14110630,
+			'제주':14110630
+
+		}
+	region_key_list = list(region_dict.keys())
 	
 	# 첫 인삿말 만들기
 	today = str(nowdate)
 	hello = "20" + today[0:2] + "년 " + today[2:4] + "월 " + today[4:6] + "일" + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n오늘의 날씨를 알려드릴 수 있고, 점심메뉴를 추천해드릴 수 있어요!" 
 	
 	# 날씨 정보 출력하기
-	regionCode = "09530540"
+	regionCode = Ct2Rc(region_dict, region_key_list, word_list)
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 	
@@ -391,6 +440,22 @@ def first_user(db, user_key):
 			cnt = cnt + 1
 	
 	return cnt
+
+# 문자를 지역코드로 바꾸는 함수
+def Ct2Rc(region_dict, key_list, word_list):
+	cnt = 0
+	for i in range(0, len(word_list)):
+		for j in range(0, len(key_list)):
+			if word_list[i] == key_list[i]:
+				cnt = cnt + 1
+				region = key_list[i]
+	
+	if cnt==0:
+		# 지역코드가 잘못 입력된 경우 서울의 날씨
+		region = 09140550
+		return region
+	else :
+		return region
 
 	
 if __name__ == '__main__':
