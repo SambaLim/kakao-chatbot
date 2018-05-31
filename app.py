@@ -84,7 +84,7 @@ def Keyboard():
 	
 	dataSend = {
 		"type" : "buttons",
-		"buttons" : ["★ 시작하기", "★ 지역설정", "★ 정보"]
+		"buttons" : ["★ 시작하기", "★ 지역설정", "★ 도움말", "★ 정보"]
 	}
 	return jsonify(dataSend)
 
@@ -164,7 +164,19 @@ def Message():
 				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
 			}
 		}
-
+	elif content == u"★ 도움말":
+		first_dbSet(db, user_key, user)
+		dataSend = {
+			"keyboard" : {
+				"type" : "buttons",
+				"buttons":[
+					"★ 일상대화",
+					"★ 점심대화",
+					"★ 날씨대화"
+				]
+			}
+		}
+		
 	# 지역설정 지역입력받기
 	elif user_state==CONVERSATION_SETREGION:
 		new_regionCode, ck = Ct2Rc(region_dict, region_key_list, word_list)
