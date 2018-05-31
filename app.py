@@ -123,7 +123,7 @@ def Message():
 	
 	# user_key firestore에 저장해보기
 	user = db.collection(u'user').document(user_key)
-	first_dbSet(db, user_key, user)
+	user_state, user_regionCode = first_dbSet(db, user_key, user)
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
@@ -445,9 +445,11 @@ def Ct2Rc(region_dict, key_list, word_list):
 # 초기 데이터베이슷 설정해주는 함수
 def first_dbSet(db, user_key, user):
 	if first_user(db, user_key) == 0 :
+		user_state = CONVERSATION_START
+		user_regionCode = '11200510'
 		user.set({
-			'state' : CONVERSATION_START
-			, 'regionCode' : '11200510'
+			'state' : user_state
+			, 'regionCode' : user_regionCode
 		})
 	else :
 		user_state = get_user_state(user)
@@ -456,6 +458,7 @@ def first_dbSet(db, user_key, user):
 			'state' : user_state
 			, 'regionCode' : user_regionCode
 		})
+	return user_state, user_regionCode
 	
 if __name__ == '__main__':
 	app.run(debug=True)
