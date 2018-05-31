@@ -160,7 +160,7 @@ def Message():
 		}
 
 	# 지역설정 지역입력받기
-	if user_state==CONVERSATION_SETREGION:
+	elif user_state==CONVERSATION_SETREGION:
 		new_regionCode, ck = Ct2Rc(region_dict, region_key_list, word_list)
 		user.set({
 			'state' : user_state
