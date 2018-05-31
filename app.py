@@ -123,14 +123,14 @@ def Message():
 	if first_user(db, user_key) == 0 :
 		user.set({
 			'state' : CONVERSATION_START
-			'regionCode' : '11200510'
+			, 'regionCode' : '11200510'
 		})
 	else :
 		user_state = get_user_state(user)
 		user_regionCode = get_user_regionCode(user)
 		user.set({
 			'state' : user_state
-			'regionCode' : user_regionCode
+			, 'regionCode' : user_regionCode
 		})
 	
 
@@ -145,7 +145,7 @@ def Message():
 	if content == u"★ 시작하기":
 		user.set({
 			'state' : CONVERSATION_START
-			'regionCode' : user_regionCode
+			, 'regionCode' : user_regionCode
 		})
 		dataSend = {
 			"message" : {
@@ -155,7 +155,7 @@ def Message():
 	elif content == u"★ 정보":
 		user.set({
 			'state' : CONVERSATION_START
-			'regionCode' : user_regionCode
+			, 'regionCode' : user_regionCode
 		})
 		dataSend = {
 			"message" : {
@@ -167,7 +167,7 @@ def Message():
 	elif word_list_there(word_list, list_hello)>=1 :
 		user.set({
 			'state' : CONVERSATION_NORMAL
-			'regionCode' : user_regionCode
+			, 'regionCode' : user_regionCode
 		})
 		dataSend = {
 			"message" : {
@@ -208,7 +208,7 @@ def Message():
 	elif word_list_there(word_list, list_lunch)>=1 :
 		user.set({
 			'state' : CONVERSATION_LUNCH
-			'regionCode' : user_regionCode
+			, 'regionCode' : user_regionCode
 		})
 		if word_list_there(word_list, list_eat_Nono)>=1:
 			dataSend = {
@@ -310,7 +310,7 @@ def Message():
 	elif word_there(word_list, "날씨")>=1 :
 		user.set({
 			'state' : CONVERSATION_WEATHER
-			'regionCode' : user_regionCode
+			, 'regionCode' : user_regionCode
 		})
 		if word_there(word_list, "내일")>=1 :
 			dataSend = {
