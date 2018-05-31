@@ -133,7 +133,7 @@ def Message():
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
-	choice1, menu_number = random_menu(docs)
+	choice1 = random_menu(docs)
 	lunch = "오늘 점심은 " + choice1 + " 어때요?"
 	else_lunch = "아니면" + choice1 + " 어때요?"
 	
@@ -501,7 +501,7 @@ def random_menu(docs):
 	i = random.randint(0, len(restaurant_list)-1)
 	choice = restaurant_list[i]
 	
-	return choice, i
+	return choice
 
 # User의 상태를 가져오는 함수
 def get_user_state(user):
