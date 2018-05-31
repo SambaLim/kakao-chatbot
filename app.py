@@ -447,7 +447,7 @@ def Ct2Rc(region_dict, key_list, word_list):
 	cnt = 0
 	for i in range(0, len(word_list)):
 		for j in range(0, len(key_list)):
-			if word_list[i] == key_list[i]:
+			if word_list[i] == key_list[j]:
 				cnt = cnt + 1
 				region = key_list[i]
 	
