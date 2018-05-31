@@ -325,17 +325,6 @@ def Message():
 					"text" : winfo
 				}
 			}
-	elif user_state==CONVERSATION_WEATHER :
-		if word_there(word_list, "내일")>=1:
-			dataSend = {
-				"message" : {
-					"text" : "저는 오늘의 날씨밖에 알 수 없어요 ㅠ_ㅠ"
-				}
-			}
-		else :
-			user.set({
-				'state' : CONVERSATION_NORMAL
-			})
 							
 	# 모르는 말이 나왔을 때
 	else :
