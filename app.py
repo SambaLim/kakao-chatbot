@@ -55,6 +55,7 @@ def Message():
 	CONVERSATION_NORMAL = "일상대화"
 	CONVERSATION_LUNCH = "점심대화"
 	CONVERSATION_WEATHER = "날씨대화"
+	BUTTON_SETREGION = "지역정하기"
 	
 	# 형태소 분석한 list 만들기
 	word_list = word_extract(content)
@@ -161,7 +162,8 @@ def Message():
 	elif content == "지역코드":
 		dataSend = {
 			"message" : {
-				"text" : "지역코드"
+					"type" : "buttons",
+					"buttons" : ["★ 시작하기", "★ 도움말"]
 			}
 		}
 
