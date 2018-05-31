@@ -185,6 +185,10 @@ def Message():
 			},
 			"message" : {
 				"text" : "[가상대화 스크립트]\nUser:안녕^^\nBot:안녕하세요! 오늘 기분은 어떠신가요?\nUser:나빠 ㅠ_ㅠ\nBot:천천히 호흡을 가다듬어봐요~ 기분이 한결 좋아질거에요!"
+			},
+			"keyboard":{
+				"type":"buttons",
+				"buttons":["★ 시작하기", "★ 지역설정", "★ 도움말", "★ 정보"]
 			}
 		}
 	elif content == u"★ 점심대화":
@@ -195,6 +199,10 @@ def Message():
 			},
 			"message" : {
 				"text" : "[가상대화 스크립트]\nUser:뭐먹을까?\nBot:오늘 점심은 돈까스 어때요?\nUser:싫어\nBot:아니면 국밥 어때요?\nUser:ㅇㅇ\nBot:가시죠!!!"
+			},
+			"keyboard":{
+				"type":"buttons",
+				"buttons":["★ 시작하기", "★ 지역설정", "★ 도움말", "★ 정보"]
 			}
 		}
 	elif content == u"★ 날씨대화":
@@ -205,6 +213,10 @@ def Message():
 			},
 			"message" : {
 				"text" : "[가상대화 스크립트]\nUser:오늘 제주 날씨어때?\nBot:오늘 날씨는 맑음 이고,\n온도는 21℃ 네요."
+			},
+			"keyboard":{
+				"type":"buttons",
+				"buttons":["★ 시작하기", "★ 지역설정", "★ 도움말", "★ 정보"]
 			}
 		}
 	
