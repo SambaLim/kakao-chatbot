@@ -26,7 +26,7 @@ def Keyboard():
 	
 	dataSend = {
 		"type" : "buttons",
-		"buttons" : ["★ 시작하기", "★ 도움말"]
+		"buttons" : ["★ 시작하기", "★ 정보"]
 	}
 	return jsonify(dataSend)
 
@@ -55,7 +55,7 @@ def Message():
 	CONVERSATION_NORMAL = "일상대화"
 	CONVERSATION_LUNCH = "점심대화"
 	CONVERSATION_WEATHER = "날씨대화"
-	BUTTON_SETREGION = "지역정하기"
+	CONVERSATION_SETREGION = "지역정하기"
 	
 	# 형태소 분석한 list 만들기
 	word_list = word_extract(content)
@@ -123,11 +123,14 @@ def Message():
 	if first_user(db, user_key) == 0 :
 		user.set({
 			'state' : CONVERSATION_START
+			'regionCode' : '11200510'
 		})
 	else :
 		user_state = get_user_state(user)
+		user_regionCode = get_user_regionCode(user)
 		user.set({
 			'state' : user_state
+			'regionCode' : user_regionCode
 		})
 	
 
@@ -142,28 +145,21 @@ def Message():
 	if content == u"★ 시작하기":
 		user.set({
 			'state' : CONVERSATION_START
+			'regionCode' : user_regionCode
 		})
 		dataSend = {
 			"message" : {
 				"text" : hello
 			}
 		}
-	elif content == u"★ 도움말":
+	elif content == u"★ 정보":
 		user.set({
 			'state' : CONVERSATION_START
+			'regionCode' : user_regionCode
 		})
 		dataSend = {
 			"message" : {
 				"text" : "Since. 2018.05.03\n점심 메뉴, 음식점 추천을 해주는 챗봇입니다. 오늘의 날씨정보 또한 제공하고 있습니다.\n.\n.\n.\n문의: limsungho07@hanmail.net\nGithub:https://github.com/SambaLim"
-			}
-		}
-		
-	# regionCode 테스트
-	elif content == "지역코드":
-		dataSend = {
-			"message" : {
-					"type" : "buttons",
-					"buttons" : ["★ 시작하기", "★ 도움말"]
 			}
 		}
 
@@ -171,6 +167,7 @@ def Message():
 	elif word_list_there(word_list, list_hello)>=1 :
 		user.set({
 			'state' : CONVERSATION_NORMAL
+			'regionCode' : user_regionCode
 		})
 		dataSend = {
 			"message" : {
@@ -211,6 +208,7 @@ def Message():
 	elif word_list_there(word_list, list_lunch)>=1 :
 		user.set({
 			'state' : CONVERSATION_LUNCH
+			'regionCode' : user_regionCode
 		})
 		if word_list_there(word_list, list_eat_Nono)>=1:
 			dataSend = {
@@ -312,6 +310,7 @@ def Message():
 	elif word_there(word_list, "날씨")>=1 :
 		user.set({
 			'state' : CONVERSATION_WEATHER
+			'regionCode' : user_regionCode
 		})
 		if word_there(word_list, "내일")>=1 :
 			dataSend = {
@@ -421,6 +420,13 @@ def get_user_state(user):
 	dict = get_user.to_dict()
 	state = str(dict['state'])
 	return state
+	
+# User의 지역코드를 가져오는 함수
+def get_user_regionCode(user):
+	get_user = user.get()
+	dict = get_user.to_dict()
+	user_regionCode = str(dict['regionCode'])
+	return user_regionCode 
 	
 # 처음으로 들어오는 User인지를 확인하는 함수
 def first_user(db, user_key):
