@@ -94,7 +94,7 @@ def Keyboard():
 			"type" : "buttons",
 			"buttons" : ["★ 일상대화", "★ 점심대화", "★ 날씨대화", "★ 기타"]
 			}
-			KEYBOARD_SETTING_NUM == '0'
+			KEYBOARD_SETTING_NUM = '0'
 	
 
 	return jsonify(dataSend)
