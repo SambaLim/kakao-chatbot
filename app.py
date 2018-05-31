@@ -167,6 +167,9 @@ def Message():
 	elif content == u"★ 도움말":
 		first_dbSet(db, user_key, user)
 		dataSend = {
+			"message" : {
+				"text" : "도움말 입니다."
+			},
 			"keyboard" : {
 				"type" : "buttons",
 				"buttons":[
