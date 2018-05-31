@@ -20,6 +20,11 @@ def hello_world():
 	return 'Hello World!'
 '''
 
+# 데이터베이스(firestre) 초기화
+cred = credentials.Certificate('first-58ff5b88bb57.json')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
+
 # 상태를 정해주는 상수 만들기
 CONVERSATION_START = "시작대화"
 CONVERSATION_NORMAL = "일상대화"
@@ -105,7 +110,7 @@ def Message():
 	list_mad = ["나쁘", "화나", "힘들"]
 	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
 	list_LetsGo = ["콜", "가자"]
-	list_notoday = ["내일", "이번주"]
+	list_notoday = ["내일", "이번", "주"]
 	
 	# 지역 list
 	region_key_list = list(region_dict.keys())
@@ -380,11 +385,6 @@ def Message():
 		}
 		
 	return jsonify(dataSend)
-
-# 데이터베이스(firestre) 초기화
-cred = credentials.Certificate('first-58ff5b88bb57.json')
-firebase_admin.initialize_app(cred)
-db = firestore.client()
 
 # 지역의 날씨와 온도를 가져오는 함수	
 def get_weather(regionCode):
