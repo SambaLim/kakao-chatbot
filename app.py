@@ -172,12 +172,20 @@ def Message():
 					"text" : "지역설정에 들어가 지역을 다시 입력해주세요!"
 				}
 			}
+			user.set({
+				'state' : CONVERSATION_START
+				, 'regionCode' : new_regionCode
+			})
 		elif ck ==1 :
 			dataSend = {
 				"message" : {
 					"text" : "지역이 설정되었습니다. \n날씨 어때?, 날씨 알려줘! 와 같이 날씨를 물어보면 날씨에 대한 대답을 들을 수 있습니다."
 				}
 			}
+			user.set({
+				'state' : CONVERSATION_START
+				, 'regionCode' : new_regionCode
+			})
 		
 		else :
 			dataSend = {
@@ -185,6 +193,10 @@ def Message():
 					"text" : "지역설정에 실패하였습니다!"
 				}
 			}
+			user.set({
+				'state' : CONVERSATION_START
+				, 'regionCode' : new_regionCode
+			})
 	
 	# 일상대화 인사
 	elif word_list_there(word_list, list_hello)>=1 :
