@@ -105,6 +105,7 @@ def Message():
 	list_mad = ["나쁘", "화나", "힘들"]
 	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
 	list_LetsGo = ["콜", "가자"]
+	list_notoday = ["내일", "이번주"]
 	
 	# 지역 list
 	region_key_list = list(region_dict.keys())
@@ -112,18 +113,18 @@ def Message():
 	# 형태소 분석한 list 만들기
 	word_list = word_extract(content)
 	
+	# firestore User 초기설정
+	user = db.collection(u'user').document(user_key)
+	user_state, user_regionCode = first_dbSet(db, user_key, user)
+	
 	# 첫 인삿말 만들기 
 	today = str(nowdate)
 	hello = "20" + today[0:2] + "년 " + today[2:4] + "월 " + today[4:6] + "일" + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n오늘의 날씨를 알려드릴 수 있고, 점심메뉴를 추천해드릴 수 있어요!" 
 	
 	# 날씨 정보 출력하기 (지역코드)
-	regionCode, ck = Ct2Rc(region_dict, region_key_list, word_list)
+	regionCode = user_regionCode
 	weather, temp = get_weather(regionCode)
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
-	
-	# firestore User 초기설정
-	user = db.collection(u'user').document(user_key)
-	user_state, user_regionCode = first_dbSet(db, user_key, user)
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
@@ -179,7 +180,7 @@ def Message():
 		elif ck ==1 :
 			dataSend = {
 				"message" : {
-					"text" : "지역이 설정되었습니다. \n날씨 어때?, 날씨 알려줘! 와 같이 날씨를 물어보면 날씨에 대한 대답을 들을 수 있습니다."
+					"text" : "지역이 설정되었습니다. \n\"날씨 어때?\", \"날씨 알려줘!\" 와 같이 날씨를 물어보면 날씨에 대한 대답을 들을 수 있습니다."
 				}
 			}
 			user.set({
@@ -343,22 +344,32 @@ def Message():
 				
 	# 날씨대화 날씨를 알려주는 부분
 	elif word_there(word_list, "날씨")>=1 :
-		user.set({
-			'state' : CONVERSATION_WEATHER
-			, 'regionCode' : user_regionCode
-		})
-		if word_there(word_list, "내일")>=1 :
-			dataSend = {
-				"message" : {
-					"text" : "저는 오늘의 날씨밖에 알 수 없어요 ㅠ_ㅠ"
-				}
-			}
-		else :
+		if word_list_there(word_list, region_key_list)>=1 :
+			rc, ck = Ct2Rc(region_dict, region_key_list, word_list)
+			weather, temp = get_weather(rc)
+			winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 			dataSend = {
 				"message" : {
 					"text" : winfo
 				}
 			}
+		else:
+			user.set({
+				'state' : CONVERSATION_WEATHER
+				, 'regionCode' : user_regionCode
+			})
+			if word_list_there(word_list, list_notoday)>=1 :
+				dataSend = {
+					"message" : {
+						"text" : "저는 오늘의 날씨밖에 알 수 없어요 ㅠ_ㅠ"
+					}
+				}
+			else :
+				dataSend = {
+					"message" : {
+						"text" : winfo
+					}
+				}
 							
 	# 모르는 말이 나왔을 때
 	else :
