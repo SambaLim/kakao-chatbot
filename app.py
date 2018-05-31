@@ -549,7 +549,7 @@ def Ct2Rc(region_dict, key_list, word_list):
 		regionCode = region_dict[region]
 		return str(regionCode), 1
 
-# 초기 데이터베이슷 설정해주는 함수
+# 초기 데이터베이스를 설정해주는 함수
 def first_dbSet(db, user_key, user):
 	if first_user(db, user_key) == 0 :
 		user_state = CONVERSATION_START
