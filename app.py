@@ -332,6 +332,10 @@ def Message():
 					"text" : "저는 오늘의 날씨밖에 알 수 없어요 ㅠ_ㅠ"
 				}
 			}
+		else :
+			user.set({
+				'state' : CONVERSATION_NORMAL
+			})
 							
 	# 모르는 말이 나왔을 때
 	else :
