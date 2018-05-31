@@ -122,7 +122,8 @@ def Message():
 	winfo = "오늘의 날씨는 " + str(weather) + "이고,\n온도는 " + str(temp) + "℃ 네요."
 	
 	# user_key firestore에 저장해보기
-	user = db.collection(u'user').document(user_key)	
+	user = db.collection(u'user').document(user_key)
+	first_dbSet(db, user_key, user)
 
 	# 재미로 랜덤 점심추천 만들기 (choice1)
 	docs = db.collection(u'restaurant').get()
