@@ -168,7 +168,7 @@ def Message():
 				"text" : "지역을 입력해주세요!\n(띄어쓰기가 중요합니다.) \n.\n.\n광역시, 특별시 \nex.○○시 ○○구 ○○동\n북도, 남도 또는 도\nex.충청북도 혹은 충북"
 			}
 		}
-	elif content == u"★  도움말"
+	elif content == u"★  도움말":
 		first_dbSet(db, user_key, user)
 		KEYBOARD_SETTING_NUM = '1'
 		dataSend = {
