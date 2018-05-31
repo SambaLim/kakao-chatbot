@@ -149,7 +149,7 @@ def Message():
 	else_lunch = "아니면" + choice1 + " 어때요?"
 	
 	# Message 본문
-	# 초기 버튼 시작하기, 도움말 '★'로 구분
+	# 초기 버튼 '★'로 구분
 	if content == u"★ 시작하기":
 		first_dbSet(db, user_key, user)
 		dataSend = {
