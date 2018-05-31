@@ -124,7 +124,7 @@ def Message():
 	
 	# 첫 인삿말 만들기 
 	today = str(nowdate)
-	hello = "20" + today[0:2] + "년 " + today[2:4] + "월 " + today[4:6] + "일" + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n오늘의 날씨를 알려드릴 수 있고, 점심메뉴를 추천해드릴 수 있어요! 자세한 기능을 알고싶으시다면 최초 메뉴에서 \'★ 도움말\'을 눌러주세요." 
+	hello = "20" + today[0:2] + "년 " + today[2:4] + "월 " + today[4:6] + "일" + "\n안녕하세요! 오늘 점심뭐먹을까 입니다.\n오늘의 날씨를 알려드릴 수 있고, 점심메뉴를 추천해드릴 수 있어요! 자세한 기능을 알고싶으시다면 최초 메뉴에서 \'★ 도움말\'을 누르시거나 \'#도움말\'을 입력해주세요." 
 	
 	# 날씨 정보 출력하기 (지역코드)
 	regionCode = user_regionCode
@@ -177,6 +177,17 @@ def Message():
 		}
 	
 	# 도움말 설명 작성하기
+	elif content == u"#도움말":
+		first_dbSet(db, user_key, user)
+		dataSend = {
+			"message" : {
+				"text" : "도움말에서는 간단한 스크립트와 \'오늘 점심뭐먹을까\'가 이해할 수 있는 언어들에 대해 설명합니다.\n각 스크립트의 Bot은 \'오늘 점심뭐먹을까\'를 User는 \'사용자\'를 의미합니다."
+			},
+			"keyboard":{
+				"type":"buttons",
+				"buttons":["★ 일반대화", "★ 점심대화", "★ 날씨대화", "★ 추가요청"]
+			}
+		}
 	elif content == u"★ 일반대화":
 		first_dbSet(db, user_key, user)
 		dataSend = {
