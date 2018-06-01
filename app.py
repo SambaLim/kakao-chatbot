@@ -292,7 +292,7 @@ def Message():
 	elif word_list_there(word_list, list_mad)>=1 :
 		dataSend = {
 			"message" : {
-				"text" : "천천히 호흡을 가다듬어봐요~ 기분이 한결 좋아질거에요!"
+				"text" : mad_vari()
 			}
 		}
 	# 일상대화 나쁜말 정화하기 ^^
@@ -387,7 +387,7 @@ def Message():
 			if word_list_there(word_list, list_emo_Nono)>=1:
 				dataSend = {
 					"message" : {
-						"text" : "매운걸 드셔보시는건 어때요?\n스트레스가 날아갈거에요!"
+						"text" : mad_vari()
 					}
 				}
 			else : 
@@ -636,6 +636,13 @@ def muha_vari():
 	muha_list = ["너는 지금 뭐해~ 자니~ 밖이야?\n날씨, 점심메뉴를 물어봐주세요~", "이젠 새로운 어플을 개발중이에요! \nTo be Continue...", "뭐할지 생각하고 있어요!"]
 	i = random.randint(0, len(muha_list)-1)
 	string = str(muha_list[i])
+	return string
+	
+# 일상대화 부정적 기분의 다양한 대답을 만드는 함수
+def mad_vari():
+	somad_list = ["천천히 호흡을 가다듬어봐요~ 기분이 한결 좋아질거에요!", "매운걸 드셔보시는건 어때요?\n스트레스가 날아갈거에요!", "오늘은 명상의 시간을 가져보는건 어때요?", "주변의 펀치기계를 찾아보세요!!!", "오늘은 쉬는게 좋겠어요^_^"]
+	i = random.randint(0, len(somad_list)-1)
+	string = str(somad_list[i])
 	return string
 	
 if __name__ == '__main__':
