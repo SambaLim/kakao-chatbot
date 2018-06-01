@@ -273,7 +273,7 @@ ex. 안녕
 - heroku 설치 & deploy :
   http://www.gtlambert.com/blog/deploy-flask-app-to-heroku
 - heroku 연동:
-  [http://jacegem.github.io/blog/2018/카카오톡 플러스친구 스마트채팅 만들기 8 - Heroku 배포/](http://jacegem.github.io/blog/2018/카카오톡 플러스친구 스마트채팅 만들기 8 - Heroku 배포/)
+  http://jacegem.github.io/blog/
 - 플러스 친구 관리자 페이지 :
   https://center-pf.kakao.com/login
 - 날씨정보 연동 :
