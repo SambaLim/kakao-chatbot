@@ -21,7 +21,7 @@ def hello_world():
 '''
 
 # 데이터베이스(firestre) 초기화
-cred = credentials.Certificate('first-58ff5b88bb57.json')
+cred = credentials.Certificate('json파일의 경로를 입력해주세요')
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -499,7 +499,7 @@ def word_extract(content):
 	# 언어분석 API
 	# http://aiopen.etri.re.kr/
 	openApiURL = 'http://aiopen.etri.re.kr:8000/WiseNLU'
-	accessKey = '23dcec62-3fa0-4e1c-8bb4-266ca86ad359'
+	accessKey = 'API키를 입력해 주세요.'
 	analysisCode = 'ner'
 	word_list = []
 	text = str(content)
