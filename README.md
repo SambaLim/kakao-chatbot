@@ -220,10 +220,44 @@ Bot  : 2날씨정보 제공
 
 ----------
 # 05. 구현
-- 업데이트 예정입니다.
+- Flask 플러스 친구 API 사용
+  - Home Keyboard API 기본 예제
+
+```
+    @app.route('/keyboard')
+    def Keyboard():
+    
+            dataSend = {
+                    "type" : "buttons",
+                    "buttons" : ["선택 1", "선택 2", "선택 3"]
+            }        
+            return jsonify(dataSend)
+```
+
+  - Message 수신 및 자동응답 API 기본 예제
+
+```
+    @app.route('/message')
+    def Mesaage():
+            if content == "선택 1":
+                    dataSend = {
+                            "message" : {
+                                    "text" : "안녕하세요"
+                            }
+                    }     
+            return jsonify(dataSend)
+```
+
+- 언어분석 알고리즘 설명
+
+ex. 안녕
+
+1. 문장을 받아 언어분석 API로 형태소 분석을 하고 List에 append 해준다.
+  ex. 안녕하세요? → ['안녕', '하', '세요', '?']
 
 
-
+2. 리스트와 스트링을 비교해 일치하는지 확인하는 함수를 만든다. `word_there`
+  ex. word_there(안녕하세요?, 안녕) → `1`
 
 
 ----------
@@ -250,4 +284,6 @@ Bot  : 2날씨정보 제공
   http://aiopen.etri.re.kr/doc_language.php
 - 구현 참고 :
   https://github.com/plusfriend/auto_reply
+- 점프 투 파이썬 :
+  https://wikidocs.net/book/1
 
