@@ -644,6 +644,7 @@ def mad_vari():
 	i = random.randint(0, len(somad_list)-1)
 	string = str(somad_list[i])
 	return string
+
 	
 if __name__ == '__main__':
 	app.run(debug=True)
