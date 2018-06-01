@@ -142,6 +142,10 @@ def Message():
 	# 초기 버튼 '★'로 구분
 	if content == u"★ 시작하기":
 		first_dbSet(db, user_key, user)
+		user.set({
+			'state' : CONVERSATION_START
+			, 'regionCode' : user_regionCode
+		})
 		dataSend = {
 			"message" : {
 				"text" : hello
