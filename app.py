@@ -104,13 +104,14 @@ def Message():
 	list_hello = ["안녕", "하이", "헬로"]
 	list_eat_Nono = ["안먹", "싫", "먹기싫", "ㄴㄴ"]
 	list_lunch = ["점심", "메뉴", "뭐먹", "뭐먹을까"]
-	list_Yesyes = ["좋", "좋아", "응", "네", "ㅇㅇ"]
+	list_Yesyes = ["좋", "좋아"]
 	list_emo_Nono = ["안좋", "않", "안", "안먹"]
 	list_what_are_you_doing = ["뭐", "하"]
 	list_mad = ["나쁘", "화나", "힘들"]
 	list_merong = ["메롱", "바보", "멍청이", "멍충이"]
 	list_LetsGo = ["콜", "가자"]
 	list_notoday = ["내일", "이번", "주"]
+	list_agree = ["응", "네", "ㅇㅇ", "동의"]
 	
 	# 지역 list
 	region_key_list = list(region_dict.keys())
@@ -214,7 +215,7 @@ def Message():
 		first_dbSet(db, user_key, user)
 		dataSend = {
 			"message" : {
-				"text" : "\'오늘 점심뭐먹을까\'의 날씨대화는 날씨에 대한 의문문으로 시작합니다.\n각 시/도의 날씨를 물어볼 수 있습니다. \n(시/도 입력 후 띄어쓰기를 해주어야 합니다.)\n단어 목록 : 각 시/도\n\n\n[가상대화 스크립트]\nUser: 오늘 제주 날씨 어때?\nBot: 오늘 날씨는 맑음 이고,\n온도는 21℃ 네요.]\nUser: 오늘 날씨 어때?\nBot: 오늘 날씨는 흐림 이고,\n온도는 18℃ 네요."
+				"text" : "\'오늘 점심뭐먹을까\'의 날씨대화는 날씨에 대한 의문문으로 시작합니다.\n각 시/도의 날씨를 물어볼 수 있습니다. \n(시/도 입력 후 띄어쓰기를 해주어야 합니다.)\n단어 목록 : 각 시/도\n\n[가상대화 스크립트]\nUser: 오늘 제주 날씨 어때?\nBot: 오늘 날씨는 맑음 이고,\n온도는 21℃ 네요.\nUser: 오늘 날씨 어때?\nBot: 오늘 날씨는 흐림 이고,\n온도는 18℃ 네요."
 			},
 			"keyboard":{
 				"type":"buttons",
@@ -350,6 +351,25 @@ def Message():
 			dataSend = {
 				"message" : {
 					"text" : "Let's Go!!!"
+				}
+			}
+	elif word_list_there(word_list, list_agree)>=1:
+		if user_state==CONVERSATION_LUNCH :
+			dataSend = {
+				"message" : {
+					"text" : "역시 제 선택은 탁월하군요 ^^"
+				}
+			}
+		elif user_state==CONVERSATION_WEATHER :
+			dataSend = {
+				"message" : {
+					"text" : "날씨를 알려드릴 수 있어서 기뻐요!"
+				}
+			}
+		else : 
+			dataSend = {
+				"message" : {
+					"text" : "Okay!"
 				}
 			}
 	
@@ -591,7 +611,3 @@ def first_dbSet(db, user_key, user):
 	
 if __name__ == '__main__':
 	app.run(debug=True)
-<<<<<<< HEAD
-	
-=======
->>>>>>> eca269ba0f368b626911cb743c5053a6e3502507
