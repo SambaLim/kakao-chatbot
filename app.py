@@ -285,7 +285,7 @@ def Message():
 		})
 		dataSend = {
 			"message" : {
-				"text" : "안녕하세요! 오늘 기분은 어떠신가요?"
+				"text" : hello_vari()
 			}
 		}
 	# 일상대화 나빠, 화나, 등등 부정적인 표현 다루기
@@ -314,7 +314,7 @@ def Message():
 	elif word_list_there(word_list, list_what_are_you_doing)>=2 :
 		dataSend = {
 			"message" : {
-				"text" : "너는 지금 뭐해~ 자니~ 밖이야?\n날씨, 점심메뉴를 물어봐주세요~"
+				"text" : muha_vari()
 			}
 		}
 		
@@ -351,6 +351,10 @@ def Message():
 						"text" : "좋아요!"
 					}
 				}
+				user.set({
+					'state' : CONVERSATION_START
+					, 'regionCode' : user_regionCode
+				})
 		else :
 			dataSend = {
 				"message" : {
@@ -435,7 +439,7 @@ def Message():
 		else :
 			dataSend = {
 				"message" : {
-					"text" : "싫으면 시집가세요~"
+					"text" : sillu_vari()
 				}
 			}
 				
@@ -612,6 +616,27 @@ def first_dbSet(db, user_key, user):
 			, 'regionCode' : user_regionCode
 		})
 	return user_state, user_regionCode
+	
+# 일상대화 다양한 인삿말을 만드는 함수
+def hello_vari():
+	hello_list = ["안녕하세요! 오늘 기분은 어떠신가요?", "안녕하세요~ 반가워요 ㅎㅎㅎ\n기분이 어떠세요?","안녕하십니까~ 기분이 어떠십니까~?", "안녕하신가영이 부릅니다. 네가 좋아\n정보. 안녕하신가영의 보컬의 이름은 신가영이 아니다."]
+	i = random.randint(0, len(hello_list)-1)
+	string = str(hello_list[i])
+	return string
+	
+# 일상대화 싫어의 다양한 대답을 만드는 함수
+def sillu_vari():
+	sillu_list = ["싫으면 시집가세요~", "제가 싫을 수 있나요 ㅠ_ㅠ", "어쩔 수 없죠..."]
+	i = random.randint(0, len(sillu_list)-1)
+	string = str(sillu_list[i])
+	return string
+
+# 일상대화 뭐해의 다양한 대답을 만드는 함수	
+def muha_vari():
+	muha_list = ["너는 지금 뭐해~ 자니~ 밖이야?\n날씨, 점심메뉴를 물어봐주세요~", "이젠 새로운 어플을 개발중이에요! \nTo be Continue...", "뭐할지 생각하고 있어요!"]
+	i = random.randint(0, len(muha_list)-1)
+	string = str(muha_list[i])
+	return string
 	
 if __name__ == '__main__':
 	app.run(debug=True)
